@@ -75,8 +75,9 @@ body{
     position: absolute;
     left: 0;
     width: 100%;
-    padding: 50px;
+    padding:  75px;
     transition: 0.5s;
+
 }
 .formBx .signinForm{
     transition-delay: 0.25s;
@@ -84,6 +85,7 @@ body{
 .formBx .signupForm{
     left: 100%;
     transition-delay: 0s;
+    
 }
 
 .formBx.active .signupForm{
@@ -105,6 +107,7 @@ transition-delay: 0s;
     color: #333;
     margin-bottom: 20px;
     font-weight: 500;
+    margin-top: 20px;
 }
 
 .formBx .form form input{

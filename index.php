@@ -37,7 +37,11 @@
             <div class="form signupForm">
                 <form action="signup.php" method="post">
                     <h3>Regisztráció</h3>
+                    <input type="text" name="kernev" placeholder="keresztnév" id="">
+                    <input type="text" name="veznev" placeholder="vezetéknév" id="">
+                    <input type="text" name="szulido" placeholder="születési idő" id="">
                     <input type="text" name="username" placeholder="felhasználónév" id="">
+                    <input type="text" name="email" placeholder="e-mail cím" id="">
                     <input type="password" name="password" placeholder="jelszó" id="">
                     <input type="password" name="confirm-password" placeholder="jelszó mégegyszer" id="">
                     <?php if(isset($_GET["signup_error"])): ?>
