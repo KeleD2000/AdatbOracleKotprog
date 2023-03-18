@@ -21,6 +21,7 @@ if(isset($_POST["login"])){
         if($user){
             //sikeres login
             $_SESSION["login"] = true;
+            $_SESSION["id"] = $user->ID;
             $_SESSION["username"] = $user->FELHASZNALONEV;
             header("location: home.php");
         }else{
