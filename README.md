@@ -1,0 +1,2 @@
+# AdatbOracleKotprog
+IMADOM ORACLE
