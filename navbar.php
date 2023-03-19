@@ -1,8 +1,8 @@
 <nav class="navbar is-info" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
-                Facebook klón
+            <a class="navbar-item" href="home.php">
+                Kezdőlap
             </a>
 
             <a role="button" class="navbar-burger nav-toggler" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -14,35 +14,18 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item">
-                    Kezdőlap
+                <a class="navbar-item" href="csoportok.php">
+                    Csoportok
                 </a>
 
-                <a class="navbar-item">
-                    Documentation
+                <a class="navbar-item" href="baratok.php">
+                    Barátok
                 </a>
 
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        More
-                    </a>
+                <a class="navbar-item" href="uzenetek.php">
+                    Üzenetek
+                </a>
 
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            About
-                        </a>
-                        <a class="navbar-item">
-                            Jobs
-                        </a>
-                        <a class="navbar-item">
-                            Contact
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Report an issue
-                        </a>
-                    </div>
-                </div>
             </div>
 
             <div class="navbar-end">
@@ -55,8 +38,6 @@
                             <a href="profile.php?id=<?php echo $_SESSION['id'] ?>" class="navbar-item">
                                 Profil
                             </a>
-                            <a href="#" class="navbar-item">Settings</a>
-                            <hr class="navbar-divider" />
                             <a href="logout.php" class="navbar-item">Kilépés</a>
                         </div>
                     </div>

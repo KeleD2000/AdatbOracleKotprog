@@ -23,6 +23,7 @@ if(isset($_POST["login"])){
             $_SESSION["login"] = true;
             $_SESSION["id"] = $user->ID;
             $_SESSION["username"] = $user->FELHASZNALONEV;
+            $_SESSION["kernev"] = $user->KERNEV;
             header("location: home.php");
         }else{
             //hibás pw
