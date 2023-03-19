@@ -1,7 +1,5 @@
 <?php 
-require_once('connect.php');
-session_start();
-
+require_once("init.php");
 if(isset($_POST["login"])){
     var_dump($_POST);
     $stmt = oci_parse($con, 'SELECT * FROM felhasznalo WHERE felhasznalonev = :username');

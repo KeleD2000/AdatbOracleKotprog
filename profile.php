@@ -1,21 +1,9 @@
 <?php
-session_start();
+require_once("init.php");
 if (!isset($_SESSION["login"]) || !isset($_GET["id"])) header("location: index.php");
+html_header("Profil");
+include("navbar.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Profil oldal - <?php echo $_SESSION["username"]; ?></title>
-</head>
-
-<body>
-    <?php include("navbar.php"); ?>
     <div class="container">
         <section class="hero boritokep is-link is-medium">
             <div class="hero-body">
@@ -28,7 +16,6 @@ if (!isset($_SESSION["login"]) || !isset($_GET["id"])) header("location: index.p
             <ul>
                 <li onclick="openTab(event,'bejegyzesek')" class="is-active tab"><a>Bejegyzések</a></li>
                 <li class="tab" onclick="openTab(event,'ismerosok')"><a>Ismerősök</a></li>
-                <li class="tab" onclick="openTab(event,'fenykepek')"><a>Fényképek</a></li>
                 <li class="tab" onclick="openTab(event,'nevjegy')"><a>Névjegy</a></li>
             </ul>
         </div>
@@ -36,10 +23,7 @@ if (!isset($_SESSION["login"]) || !isset($_GET["id"])) header("location: index.p
             Bejegyzések
         </div>
         <div class="box content-tab" id="ismerosok" style="display: none">
-            Ismerősök
-        </div>
-        <div class="box content-tab" id="fenykepek" style="display: none">
-            Fényképek
+            <?php include("barat_list.php"); ?>
         </div>
         <div class="box content-tab" id="nevjegy" style="display: none">
             Névjegy
@@ -55,7 +39,4 @@ if (!isset($_SESSION["login"]) || !isset($_GET["id"])) header("location: index.p
             </button>
         </div>
     </div>
-    <script src="js/modal.js"></script>
-</body>
-
-</html>
+<?php html_footer(); ?>
