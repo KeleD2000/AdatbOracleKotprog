@@ -19,10 +19,12 @@
                         Csoportok
                     </a>
                     <div class="navbar-dropdown is-right">
-                        <a href="#" class="navbar-item">
+                        <a href="newcsoportok.php" class="navbar-item">
                             Új csoport létrehozása
                         </a>
-                        <a href="#" class="navbar-item">Meglévő csoportok</a>
+                        <a href="csoportok.php" class="navbar-item">
+                            Meglévő csoportok
+                        </a>
                     </div>
                 </div>
 
