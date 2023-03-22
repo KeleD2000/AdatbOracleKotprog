@@ -14,9 +14,17 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="csoportok.php">
-                    Csoportok
-                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="#" class="navbar-link">
+                        Csoportok
+                    </a>
+                    <div class="navbar-dropdown is-right">
+                        <a href="#" class="navbar-item">
+                            Új csoport létrehozása
+                        </a>
+                        <a href="#" class="navbar-item">Meglévő csoportok</a>
+                    </div>
+                </div>
 
                 <a class="navbar-item" href="baratok.php">
                     Barátok
