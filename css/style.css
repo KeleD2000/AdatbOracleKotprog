@@ -2,7 +2,6 @@ body{
     margin: 0;
     padding: 0;
 }
-
 .boritokep{
     background-image: url("../image/21122358_1392847700801056_8068081303324758712_o.jpg");
     background-size: cover;
@@ -12,4 +11,13 @@ body{
     position: relative;
     top: -75px;
     left: 45%;
+}
+#profile_kep{
+    display: flex !important;
+    justify-content: center !important;
+    bottom: 50px;
+}
+
+.friend_container {
+    display: flex !important;
 }

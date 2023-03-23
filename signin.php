@@ -1,7 +1,6 @@
 <?php 
 require_once("init.php");
 if(isset($_POST["login"])){
-    var_dump($_POST);
     $stmt = oci_parse($con, 'SELECT * FROM felhasznalo WHERE felhasznalonev = :username');
 
     oci_bind_by_name($stmt, ":username",$_POST["username"]);
@@ -22,6 +21,7 @@ if(isset($_POST["login"])){
             $_SESSION["id"] = $user->ID;
             $_SESSION["username"] = $user->FELHASZNALONEV;
             $_SESSION["kernev"] = $user->KERNEV;
+            $_SESSION["img"] = $user->KEP;
             header("location: home.php");
         }else{
             //hibás pw
