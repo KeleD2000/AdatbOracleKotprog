@@ -3,6 +3,11 @@ require_once("init.php");
 if (!isset($_SESSION["login"]) || !isset($_GET["id"])) header("location: index.php");
 html_header("Profil");
 include("navbar.php");
+
+$user_stmt = oci_parse($con, "SELECT * FROM felhasznalo WHERE id = :id");
+oci_bind_by_name($user_stmt, ":id", $_SESSION["id"]);
+oci_execute($user_stmt);
+$user = oci_fetch_object($user_stmt);
 ?>
 <div class="container">
     <section class="hero boritokep is-link is-medium">
@@ -13,7 +18,7 @@ include("navbar.php");
         <!-- 
             TODO: Oracle karakterkódolást meg kell oldalni.
         -->
-        <img class="is-rounded" style="cursor: pointer" onclick="openModal(this);" src="<?php echo (!empty($_SESSION["img"])) ? "uploads/".$_SESSION["img"] : "image/profileavatar.webp"; ?>">
+        <img class="is-rounded" style="cursor: pointer" onclick="openModal(this);" src="<?php echo (!empty($user->KEP) || !is_null($user->KEP)) ? "uploads/" . $user->KEP : "image/profileavatar.webp"; ?>">
     </figure>
     <form action="upload_image.php" method="POST" enctype="multipart/form-data">
         <div class="file" style="display: flex; justify-content: center; bottom: 50px;">
@@ -30,7 +35,7 @@ include("navbar.php");
             </label>
         </div>
     </form>
-    <?php if(isset($_GET["error"])): ?>
+    <?php if (isset($_GET["error"])) : ?>
         <p><?php echo $_GET["error"]; ?></p>
     <?php endif; ?>
     <div class="tabs">

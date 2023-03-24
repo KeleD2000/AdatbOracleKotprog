@@ -15,7 +15,6 @@ if(isset($_POST["login"])){
         oci_bind_by_name($stmt_pw, ":password", $_POST["password"]);
         oci_execute($stmt_pw);
         $user = oci_fetch_object($stmt_pw);
-        var_dump($user);
         if($user){
             //sikeres login
             $_SESSION["login"] = true;
