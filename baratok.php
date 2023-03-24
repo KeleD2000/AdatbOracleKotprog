@@ -2,10 +2,10 @@
 require_once("init.php");
 if (!isset($_SESSION["login"])) header("location: index.php");
 html_header("Üdvözöljük");
-$stmt_pw = oci_parse($con, "SELECT * FROM felhasznalo");
-oci_execute($stmt_pw);
+$stmt_barat = oci_parse($con, "SELECT * FROM felhasznalo WHERE felhasznalo.id != '".$_SESSION["id"]."' AND felhasznalo.id NOT IN (SELECT baratok.userid FROM kapcsolat, baratok WHERE kapcsolat.baratok_userid = baratok.id)");
+oci_execute($stmt_barat);
 $baratok = [];
-while (($row = oci_fetch_array($stmt_pw, OCI_ASSOC)) != false) {
+while (($row = oci_fetch_array($stmt_barat, OCI_ASSOC)) != false) {
     $baratok[] = $row;
 }
 include("navbar.php");
@@ -14,8 +14,6 @@ include("navbar.php");
     <h1 class="title mt-3">Kit ismerhetek?</h1>
     <div class="friend_container">
     <?php foreach($baratok as $key => $barat): ?>
-            <?php if($_SESSION["id"] != $barat["ID"]): ?>
-
                 <div class="card mt-5">
                     <div class="card-content">
                         <div class="media">
@@ -30,12 +28,10 @@ include("navbar.php");
                             </div>
                         </div>
                         <div class="content has-text-right">
-                            <button class="button is-info">Hozzáad</button>
+                            <a href="baratFelvetel.php?baratid=<?= $barat["ID"] ?>" class="button is-info">Hozzáad</a>
                         </div>
                     </div>
                 </div>
-
-            <?php endif; ?>
         <?php endforeach; ?>
     </div>
 </div>
