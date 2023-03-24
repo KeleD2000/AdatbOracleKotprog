@@ -5005,7 +5005,11 @@ button.dropdown-item.is-active {
   margin-top: 0.5rem;
 }
 
-
+.media + .media {
+  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
 
 .media.is-large + .media {
   margin-top: 1.5rem;

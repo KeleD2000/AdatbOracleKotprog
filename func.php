@@ -19,6 +19,8 @@ function html_header($title){
 function html_footer(){
     echo '<script src="js/modal.js"></script>
     <script src="js/navbar.js"></script>
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <script src="js/poszt.js"></script>
     </body>
     </html>';
 }
