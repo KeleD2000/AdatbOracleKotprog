@@ -18,7 +18,7 @@ $user = oci_fetch_object($user_stmt);
         <!-- 
             TODO: Oracle karakterkódolást meg kell oldalni.
         -->
-        <img class="is-rounded" style="cursor: pointer" onclick="openModal(this);" src="<?php echo (!empty($user->KEP) || !is_null($user->KEP)) ? "uploads/" . $user->KEP : "image/profileavatar.webp"; ?>">
+        <img class="is-rounded" style="cursor: pointer" onclick="openModal(this);" src="<?php echo (!empty($user->KEP)) ? "uploads/" . $user->KEP : "image/profileavatar.webp"; ?>">
     </figure>
     <form action="upload_image.php" method="POST" enctype="multipart/form-data">
         <div class="file" style="display: flex; justify-content: center; bottom: 50px;">
