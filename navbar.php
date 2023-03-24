@@ -1,10 +1,9 @@
 <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-    <div class="container">
+    <div class="container has-text-weight-bold">
         <div class="navbar-brand">
-            <a class="navbar-item" href="home.php">
-                Kezdőlap
-            </a>
-
+            
+                <img src="image/brand-removebg-preview.png" alt="logo" width="140" height="28">
+            
             <a role="button" class="navbar-burger nav-toggler" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -14,6 +13,10 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
+                 <a class="navbar-item" href="home.php">
+                    Kezdőlap
+                 </a>
+
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a href="#" class="navbar-link">
                         Csoportok

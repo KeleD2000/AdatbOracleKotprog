@@ -11,7 +11,7 @@ while (($row = oci_fetch_array($stmt_barat, OCI_ASSOC)) != false) {
 include("navbar.php");
 ?>
 <div class="container">
-    <h1 class="title mt-3">Kit ismerhetek?</h1>
+    <h1 class="title mt-6">Kit ismerhetek?</h1>
     <div class="friend_container">
     <?php foreach($baratok as $key => $barat): ?>
                 <div class="card mt-5">

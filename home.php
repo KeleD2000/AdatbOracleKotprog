@@ -9,7 +9,7 @@ include("navbar.php");
         <h1 class="title mt-3">Hírfolyam</h1>
         <div class="field">
             <div class="control">
-                <textarea style="resize: none;" class="textarea" placeholder="Poszt írása..."></textarea>
+                <textarea style="resize: none;" class="textarea" placeholder="Mi jár a fejedben?"></textarea>
             </div>
         </div>
         <div class="columns">
