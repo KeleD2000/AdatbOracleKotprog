@@ -1,5 +1,5 @@
 <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-    <div class="container has-text-weight-bold">
+    <div class="container has-text-weight-semibold">
         <div class="navbar-brand">
             
                 <img src="image/brand-removebg-preview.png" alt="logo" width="140" height="28">
