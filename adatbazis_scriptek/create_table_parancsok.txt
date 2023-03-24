@@ -29,9 +29,10 @@ create table Poszt(
 );
 
 create table Baratok(
+    id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     userid NUMBER,
     datum DATE,
-    PRIMARY KEY(userid)
+    PRIMARY KEY(id)
 );
 
 create table Csoport(
@@ -70,6 +71,6 @@ create table Kapcsolat(
     felhasznalo_id NUMBER,
     baratok_userid NUMBER,
     FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE,
-    FOREIGN KEY(baratok_userid)REFERENCES baratok(userid) ON DELETE CASCADE
+    FOREIGN KEY(baratok_userid) REFERENCES baratok(id) ON DELETE CASCADE
 );
 
