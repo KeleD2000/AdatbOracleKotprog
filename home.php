@@ -6,7 +6,7 @@ include("navbar.php");
 ?>
 <body>
     <div class="container">
-        <h1 class="title mt-3">Hírfolyam</h1>
+        <h1 class="title mt-6">Hírfolyam</h1>
         <div class="field">
             <div class="control">
                 <textarea style="resize: none;" class="textarea" placeholder="Mi jár a fejedben?"></textarea>
