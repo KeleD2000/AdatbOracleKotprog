@@ -1,0 +1,75 @@
+create table Felhasznalo (
+    id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    kernev VARCHAR2(50) NOT NULL,
+    veznev VARCHAR2(50) NOT NULL,
+    szulido DATE,
+    felhasznalonev VARCHAR2(50),
+    jelszo VARCHAR2(50),
+    kep VARCHAR2(50),
+    email VARCHAR2(50),
+    PRIMARY KEY(id)
+);
+
+create table Uzenet (
+     id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+     tartalom VARCHAR2(50),
+     datum DATE,
+     PRIMARY KEY(id)
+);
+
+create table Poszt(
+    id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    csoportposzt NUMBER,
+    szoveg VARCHAR2(50),
+    datum DATE,
+    likes NUMBER,
+	felhasznalo_id NUMBER,
+    PRIMARY KEY(id),
+	FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE
+);
+
+create table Baratok(
+    userid NUMBER,
+    datum DATE,
+    PRIMARY KEY(userid)
+);
+
+create table Csoport(
+    id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    csop_leiras VARCHAR2(50),
+    csop_nev VARCHAR2(50),
+    PRIMARY KEY(id)
+);
+
+create table Uzenetkuldes(
+    kuldo NUMBER,
+    fogado NUMBER,
+    uzenet_id NUMBER,
+    felhasznalo_id NUMBER,
+    FOREIGN KEY(kuldo) REFERENCES felhasznalo(id) ON DELETE CASCADE,
+    FOREIGN KEY(fogado) REFERENCES felhasznalo(id) ON DELETE CASCADE,
+    FOREIGN KEY(uzenet_id) REFERENCES uzenet(id) ON DELETE CASCADE,
+    FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE
+);
+
+create table Tartozik(
+    felhasznalo_id NUMBER,
+    csoport_id NUMBER,
+    FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE,
+    FOREIGN KEY(csoport_id) REFERENCES csoport(id) ON DELETE CASCADE
+);
+
+create table Komment(
+    poszt_id NUMBER,
+    felhasznalo_id NUMBER,
+    FOREIGN KEY (poszt_id) REFERENCES poszt(id) ON DELETE CASCADE,
+    FOREIGN KEY (felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE
+);
+
+create table Kapcsolat(
+    felhasznalo_id NUMBER,
+    baratok_userid NUMBER,
+    FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE,
+    FOREIGN KEY(baratok_userid)REFERENCES baratok(userid) ON DELETE CASCADE
+);
+
