@@ -74,3 +74,8 @@ create table Kapcsolat(
     FOREIGN KEY(baratok_userid) REFERENCES baratok(id) ON DELETE CASCADE
 );
 
+create table Likes(
+    FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE,
+    FOREIGN KEY(poszt_id) REFERENCES poszt(id) ON DELETE CASCADE
+);
+
