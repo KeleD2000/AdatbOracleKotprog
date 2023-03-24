@@ -15,7 +15,6 @@ if (!isset($_GET["baratid"])) {
     $kapcsolat_stmt = oci_parse($con, "INSERT INTO kapcsolat(felhasznalo_id, baratok_userid) VALUES(:felhasznalo_id, :baratok_userid)");
     oci_bind_by_name($kapcsolat_stmt, ":felhasznalo_id", $felhasznalo_id);
     oci_bind_by_name($kapcsolat_stmt, ":baratok_userid", $last_id);
-    oci_execute($kapcsolat_stmt);
 
     if(oci_execute($kapcsolat_stmt)){
         header("location: baratok.php");

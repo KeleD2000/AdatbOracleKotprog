@@ -18,7 +18,7 @@ while (($row = oci_fetch_array($stmt_barat, OCI_ASSOC)) != false) {
                 </div>
                 <div class="media-content">
                     <p class="title is-4"><?php echo $barat["VEZNEV"] . " " . $barat["KERNEV"]; ?></p>
-                    <button class="button">Törlés</button>
+                    <a href="baratTorles.php?baratid=<?= $barat["ID"] ?>" class="button">Törlés</a>
                 </div>
             </div>
         <?php endforeach; ?>
