@@ -3,6 +3,7 @@ DECLARE
   TYPE kernevek IS TABLE OF VARCHAR2(50);
   TYPE posztSzovegek IS TABLE OF VARCHAR2(200);
   TYPE email IS TABLE OF VARCHAR2(100);
+  TYPE csoportNev IS TABLE OF VARCHAR2(100);
   v_veznev VARCHAR2(100);
   v_kernev VARCHAR2(100);
   v_felhasznalonev VARCHAR2(100);
@@ -16,10 +17,19 @@ DECLARE
   v_poszt_like NUMBER;
   v_poszt_szoveg VARCHAR2(150);
   
+  v_csoport_id NUMBER;
+  v_csoport_eleje VARCHAR2(100);
+  v_csoport_hatulja VARCHAR2(100);
+  v_csoport_leiras VARCHAR2(200);
+  v_csoport_nev VARCHAR2(100);
+  
   kernev_list kernevek := kernevek('Anna','Emese', 'Márk', 'Dániel', 'Dominik','Krisztián', 'Rudi', 'István', 'Árisz','Áron', 'Bence');
   veznev_list veznevek := veznevek('Nagy', 'Illés','Kele','Hörömpő', 'Kovács', 'Rózsa', 'Szabó', 'Lakatos', 'Juhász', 'Török', 'Fekete');
   email_list email := email('@gmail.com','@freemail.hu', '@citromail.hu','@hotmail.hu','@inf.u-szeged.hu');
   poszt_szoveg_list posztSzovegek := posztSzovegek('I don’t believe people can change, look in this thread, just look at it… people never change…','We all said that 2019 was a bad year, we were saying the same thing about 2018, but things that happen in 2020 are just totally insane.','I look at the comments and half of them are pretty much off-topic. Guys stick to the subject, please!!!');
+  csoport_nev_eleje_list csoportNev := csoportNev('white', 'admirable', 'spiteful', 'greasy', 'New York', 'newts', 'puppies', 'owls', 'marines', 'yellow', 'cream', 'witty', 'modest', 'twins');
+  csoport_nev_hatulja_list csoportNev := csoportNev('white', 'admirable', 'spiteful', 'greasy', 'New York', 'newts', 'puppies', 'owls', 'marines', 'yellow', 'cream', 'witty', 'modest', 'twins');
+  
   FUNCTION random_index(p_limit IN PLS_INTEGER) RETURN PLS_INTEGER
   IS
   BEGIN
@@ -37,28 +47,50 @@ DECLARE
   BEGIN
   RETURN DBMS_CRYPTO.HASH(UTL_RAW.CAST_TO_RAW(UPPER(password)), DBMS_CRYPTO_HASH_SH1);
   END hash_password;*/
+  
 BEGIN
   FOR i IN 1..50 LOOP
   v_kernev := kernev_list(random_index(kernev_list.COUNT));
+  
   v_veznev := veznev_list(random_index(veznev_list.COUNT));
+  
   v_email_vege := email_list(random_index(email_list.COUNT));
+  
   v_szulido := rnd_date(TO_DATE('1950-01-01','YYYY-MM_DD'), SYSDATE);
+  
   v_felhasznalonev := CONCAT(SUBSTR(v_veznev,0,3), TO_CHAR(v_szulido, 'DD'));
+  
   v_email := CONCAT(v_felhasznalonev, v_email_vege);
+  
   /*v_jelszo := hash_password(CONCAT(SUBSTR(v_kernev,0,3), TO_CHAR(v_szulido, 'M')));*/
+  
   INSERT INTO felhasznalo (felhasznalonev, jelszo, kernev, veznev, szulido, email) VALUES(v_felhasznalonev, 'dsadasdasd', v_kernev, v_veznev, v_szulido, v_email);
+  COMMIT;
   END LOOP;
   
   FOR i IN 1..30 LOOP
     v_poszt_date := rnd_date(TO_DATE('2020-01-01', 'YYYY-MM_DD'), SYSDATE);
-    v_poszt_like := DBMS_RANDOM.VALUE(1,150);
+    v_poszt_like := round(DBMS_RANDOM.VALUE(1,150));
     v_poszt_szoveg := poszt_szoveg_list(random_index(poszt_szoveg_list.COUNT));
     
     INSERT INTO poszt (csoportposzt, szoveg, datum, likes, felhasznalo_id) VALUES (round(DBMS_RANDOM.VALUE(0,1)), v_poszt_szoveg, v_poszt_date, v_poszt_like, (SELECT id
-	   FROM (SELECT id 
-		 FROM felhasznalo
+	   FROM (SELECT id
+         FROM felhasznalo
 		 ORDER BY DBMS_RANDOM.VALUE)
 	   WHERE ROWNUM = 1));
+    COMMIT;
+  END LOOP;
+  
+  FOR i IN 1..30 LOOP
+    v_csoport_id :=  i;
+    v_csoport_eleje := csoport_nev_eleje_list(random_index(csoport_nev_eleje_list.COUNT));
+    v_csoport_hatulja := csoport_nev_hatulja_list(random_index(csoport_nev_hatulja_list.COUNT));
+    v_csoport_leiras := poszt_szoveg_list(random_index(poszt_szoveg_list.COUNT));
+    
+    v_csoport_nev := CONCAT(v_csoport_eleje, v_csoport_hatulja);
+    
+    INSERT INTO csoport (csop_leiras, csop_nev) VALUES (v_csoport_leiras, v_csoport_nev);
+    COMMIT;
   END LOOP;
 END;
 /

@@ -14,24 +14,28 @@ include("navbar.php");
     <h1 class="title mt-3">Kit ismerhetek?</h1>
     <div class="friend_container">
     <?php foreach($baratok as $key => $barat): ?>
-        <div class="card mt-5">
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-left">
-                            <figure class="image is-96x96">
-                                <img class="is-rounded" src="<?php echo (!empty($barat["kep"])) ? "uploads/".$barat["kep"] : "image/profileavatar.webp"; ?>" alt="Placeholder image">
-                            </figure>
+            <?php if($_SESSION["id"] != $barat["ID"]): ?>
+
+                <div class="card mt-5">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-96x96">
+                                    <img class="is-rounded" src="<?php echo (!empty($barat["KEP"])) ? "uploads/".$barat["KEP"] : "image/profileavatar.webp"; ?>" alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4"><?php echo $barat["VEZNEV"] . " " . $barat["KERNEV"];  ?></p>
+                                <p class="subtitle is-6">@<?php echo $barat["FELHASZNALONEV"] ?></p>
+                            </div>
                         </div>
-                        <div class="media-content">
-                            <p class="title is-4"><?php echo $barat["VEZNEV"] . " " . $barat["KERNEV"];  ?></p>
-                            <p class="subtitle is-6">@<?php echo $barat["FELHASZNALONEV"] ?></p>
+                        <div class="content has-text-right">
+                            <button class="button is-info">Hozzáad</button>
                         </div>
-                    </div>
-                    <div class="content has-text-right">
-                        <button class="button is-info">Hozzáad</button>
                     </div>
                 </div>
-            </div>
+
+            <?php endif; ?>
         <?php endforeach; ?>
     </div>
 </div>
