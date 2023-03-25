@@ -12,7 +12,7 @@ create table Felhasznalo (
 
 create table Uzenet (
      id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
-     tartalom VARCHAR2(50),
+     tartalom VARCHAR2(500),
      datum DATE,
      PRIMARY KEY(id)
 );
@@ -37,7 +37,7 @@ create table Baratok(
 
 create table Csoport(
     id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
-    csop_leiras VARCHAR2(50),
+    csop_leiras VARCHAR2(200),
     csop_nev VARCHAR2(50),
     PRIMARY KEY(id)
 );
