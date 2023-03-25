@@ -48,11 +48,9 @@ create table Uzenetkuldes(
     kuldo NUMBER,
     fogado NUMBER,
     uzenet_id NUMBER,
-    felhasznalo_id NUMBER,
     FOREIGN KEY(kuldo) REFERENCES felhasznalo(id) ON DELETE CASCADE,
     FOREIGN KEY(fogado) REFERENCES felhasznalo(id) ON DELETE CASCADE,
     FOREIGN KEY(uzenet_id) REFERENCES uzenet(id) ON DELETE CASCADE,
-    FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE
 );
 
 create table Tartozik(
