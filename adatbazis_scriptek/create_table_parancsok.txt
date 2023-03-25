@@ -1,3 +1,5 @@
+
+
 create table Felhasznalo (
     id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     kernev VARCHAR2(50) NOT NULL,
@@ -20,7 +22,7 @@ create table Uzenet (
 create table Poszt(
     id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     csoportposzt NUMBER DEFAULT 0,
-    szoveg VARCHAR2(50),
+    szoveg VARCHAR2(500),
     datum DATE,
     likes NUMBER,
 	felhasznalo_id NUMBER,
