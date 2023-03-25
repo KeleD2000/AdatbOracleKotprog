@@ -30,12 +30,8 @@ DECLARE
   v_baratok_date DATE;
   v_baratok_userid NUMBER;
   
-  v_kapcsolat_felhaszid NUMBER;
-  v_kapcsolat_baratid NUMBER;
-  
   v_tartalom VARCHAR(500);
   v_datum DATE;
-  
   
   kernev_list kernevek := kernevek('Anna','Emese', 'Mark', 'Daniel', 'Dominik','Krisztian', 'Rudi', 'Istvan', 'Arisz','Aron', 'Bence', 'Levente', 'Oliver', 'Marcell', 'Mate', 'Zalan', 'adam', 'Milan', 'David', 'Abigel', 'abraham', 'Erzsebet', 'Gabor', 'Jozsef', 'Matyas', 'Fanni', 'Aliz', 'Flora', 'Izabella', 'Maja', 'Lilla', 'Nora', 'Sara', 'Zsofia', 'Laura');
   veznev_list veznevek := veznevek('Nagy', 'Illes','Kele','Horompo', 'Kovacs', 'Rozsa', 'Szabo', 'Lakatos', 'Juhasz', 'Torok', 'Fekete', 'Kertesz', 'Meszaros', 'Takacs', 'Tarcali', 'Giljon', 'Feher', 'Varga', 'Toth', 'Balogh', 'Szilagyi', 'Racz', 'Papp', 'Olah', 'Nemeth', 'Kiss', 'Horvath');
@@ -114,7 +110,7 @@ BEGIN
   END LOOP;  
   
   FOR i IN 1..100 LOOP
-    INSERT INTO uzenetkuldes (kuldo, fogado, uzenet_id, felhasznalo_id) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1),  (SELECT id FROM (SELECT id FROM uzenet ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1),  (SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    INSERT INTO uzenetkuldes (kuldo, fogado, uzenet_id) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1),  (SELECT id FROM (SELECT id FROM uzenet ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
     COMMIT;
   END LOOP;
 
