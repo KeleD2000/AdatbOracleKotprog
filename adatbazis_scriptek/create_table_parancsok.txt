@@ -1,5 +1,3 @@
-
-
 create table Felhasznalo (
     id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     kernev VARCHAR2(50) NOT NULL,
@@ -80,4 +78,3 @@ create table Likes(
     FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE,
     FOREIGN KEY(poszt_id) REFERENCES poszt(id) ON DELETE CASCADE
 );
-
