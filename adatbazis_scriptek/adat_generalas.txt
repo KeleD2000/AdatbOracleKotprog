@@ -5,6 +5,7 @@ DECLARE
   TYPE email IS TABLE OF VARCHAR2(100);
   TYPE csoportNev IS TABLE OF VARCHAR2(100);
   TYPE kepNev IS TABLE OF VARCHAR(100);
+  TYPE uzenetek IS TABLE OF VARCHAR(500);
   v_veznev VARCHAR2(100);
   v_kernev VARCHAR2(100);
   v_felhasznalonev VARCHAR2(100);
@@ -25,15 +26,24 @@ DECLARE
   v_csoport_nev VARCHAR2(100);
   
   v_kep_nev VARCHAR(100);
+
+  v_baratok_date DATE;
+  v_baratok_userid NUMBER;
   
+  v_tartalom VARCHAR(500);
+  v_datum DATE;
   
-  kernev_list kernevek := kernevek('Anna','Emese', 'Márk', 'Dániel', 'Dominik','Krisztián', 'Rudi', 'István', 'Árisz','Áron', 'Bence', 'Levente', 'Olivér', 'Marcell', 'Máté', 'Zalán', 'Ádám', 'Milán', 'Dávid', 'Abigél', 'Ábrahám', 'Erzsébet', 'Gábor', 'József', 'Mátyás', 'Fanni', 'Aliz', 'Flóra', 'Izabella', 'Maja', 'Lilla', 'Nóra', 'Sára', 'Zsófia', 'Laura');
-  veznev_list veznevek := veznevek('Nagy', 'Illés','Kele','Hörömpő', 'Kovács', 'Rózsa', 'Szabó', 'Lakatos', 'Juhász', 'Török', 'Fekete', 'Kertész', 'Mészáros', 'Takács', 'Tarcali', 'Giljon', 'Fehér', 'Varga', 'Tóth', 'Balogh', 'Szilágyi', 'Rácz', 'Papp', 'Oláh', 'Németh', 'Kiss', 'Horváth');
+  kernev_list kernevek := kernevek('Anna','Emese', 'Mark', 'Daniel', 'Dominik','Krisztian', 'Rudi', 'Istvan', 'Arisz','Aron', 'Bence', 'Levente', 'Oliver', 'Marcell', 'Mate', 'Zalan', 'adam', 'Milan', 'David', 'Abigel', 'abraham', 'Erzsebet', 'Gabor', 'Jozsef', 'Matyas', 'Fanni', 'Aliz', 'Flora', 'Izabella', 'Maja', 'Lilla', 'Nora', 'Sara', 'Zsofia', 'Laura');
+  veznev_list veznevek := veznevek('Nagy', 'Illes','Kele','Horompo', 'Kovacs', 'Rozsa', 'Szabo', 'Lakatos', 'Juhasz', 'Torok', 'Fekete', 'Kertesz', 'Meszaros', 'Takacs', 'Tarcali', 'Giljon', 'Feher', 'Varga', 'Toth', 'Balogh', 'Szilagyi', 'Racz', 'Papp', 'Olah', 'Nemeth', 'Kiss', 'Horvath');
   email_list email := email('@gmail.com','@freemail.hu', '@citromail.hu','@hotmail.hu','@inf.u-szeged.hu');
   poszt_szoveg_list posztSzovegek := posztSzovegek('I don’t believe people can change, look in this thread, just look at it… people never change…','We all said that 2019 was a bad year, we were saying the same thing about 2018, but things that happen in 2020 are just totally insane.','I look at the comments and half of them are pretty much off-topic. Guys stick to the subject, please!!!');
   csoport_nev_eleje_list csoportNev := csoportNev('white', 'admirable', 'spiteful', 'greasy', 'New York', 'newts', 'puppies', 'owls', 'marines', 'yellow', 'cream', 'witty', 'modest', 'twins');
   csoport_nev_hatulja_list csoportNev := csoportNev('white', 'admirable', 'spiteful', 'greasy', 'New York', 'newts', 'puppies', 'owls', 'marines', 'yellow', 'cream', 'witty', 'modest', 'twins');
   kepnev_list kepNev := kepNev('bear.png', 'cat.png', 'chicken.png', 'deer.png', 'dog.png', 'dog2.png', 'koala.png', 'panda.png', 'rabbit.png', 'deer2.png', 'fox.png', 'giraffe.png', 'koala.png', 'meerkat.png', 'puffer-fish.png', 'rabbit2.png', 'sea-lion.png', 'weasel.png', 'wolf.png');
+  uzenetek_list uzenetek := uzenetek('Eat imagine you chiefly few end ferrars compass. Be visitor females am ferrars inquiry. Latter law remark two lively thrown. Spot set they know rest its. Raptures law diverted believed jennings consider children the see. Had invited beloved carried the colonel. Occasional principles discretion it as he unpleasing boisterous. She bed sing dear now son half.','Their could can widen ten she any. As so we smart those money in. Am wrote up whole so tears sense oh. Absolute required of reserved in offering no. How sense found our those gay again taken the. Had mrs outweigh desirous sex overcame. Improved property reserved disposal do offering me.','Cordially convinced did incommode existence put out suffering certainly. Besides another and saw ferrars limited ten say unknown. On at tolerably depending do perceived. Luckily eat joy see own shyness minuter. So before remark at depart. Did son unreserved themselves indulgence its. Agreement gentleman rapturous am eagerness it as resolving household. Direct wicket little of talked lasted formed or it. Sweetness consulted may prevailed for bed out sincerity.', 'Up am intention on dependent questions oh elsewhere september. No betrayed pleasure possible jointure we in throwing. And can event rapid any shall woman green. Hope they dear who its bred. Smiling nothing affixed he carried it clothes calling he no. Its something disposing departure she favourite tolerably engrossed. Truth short folly court why she their balls. Excellence put unaffected reasonable mrs introduced conviction she. Nay particular delightful but unpleasant for uncommonly who.
+', 'Not far stuff she think the jokes. Going as by do known noise he wrote round leave. Warmly put branch people narrow see. Winding its waiting yet parlors married own feeling. Marry fruit do spite jokes an times. Whether at it unknown warrant herself winding if. Him same none name sake had post love. An busy feel form hand am up help. Parties it brother amongst an fortune of. Twenty behind wicket why age now itself ten.', 'Able an hope of body. Any nay shyness article matters own removal nothing his forming. Gay own additions education satisfied the perpetual. If he cause manor happy. Without farther she exposed saw man led. Along on happy could cease green oh.', 'Inquietude simplicity terminated she compliment remarkably few her nay. The weeks are ham asked jokes. Neglected perceived shy nay concluded. Not mile draw plan snug next all. Houses latter an valley be indeed wished merely in my. Money doubt oh drawn every or an china. Visited out friends for expense message set eat.', 'Forfeited you engrossed but gay sometimes explained. Another as studied it to evident. Merry sense given he be arise. Conduct at an replied removal an amongst. Remaining determine few her two cordially admitting old. Sometimes strangers his ourselves her depending you boy. Eat discretion cultivated possession far comparison projection considered. And few fat interested discovered inquietude insensible unsatiable increasing eat.','Bringing so sociable felicity supplied mr. September suspicion far him two acuteness perfectly. Covered as an examine so regular of. Ye astonished friendship remarkably no. Window admire matter praise you bed whence. Delivered ye sportsmen zealously arranging frankness estimable as. Nay any article enabled musical shyness yet sixteen yet blushes. Entire its the did figure wonder off.','At distant inhabit amongst by. Appetite welcomed interest the goodness boy not. Estimable education for disposing pronounce her. John size good gay plan sent old roof own. Inquietude saw understood his friendship frequently yet. Nature his marked ham wished.','Little afraid its eat looked now. Very ye lady girl them good me make. It hardly cousin me always. An shortly village is raising we shewing replied. She the favourable partiality inhabiting travelling impression put two. His six are entreaties instrument acceptance unsatiable her. Amongst as or on herself chapter entered carried no. Sold old ten are quit lose deal his sent. You correct how sex several far distant believe journey parties. We shyness enquire uncivil affixed it carried to.
+','Barton did feebly change man she afford square add. Want eyes by neat so just must. Past draw tall up face show rent oh mr. Required is debating extended wondered as do. New get described applauded incommode shameless out extremity but. Resembled at perpetual no believing is otherwise sportsman. Is do he dispatched cultivated travelling astonished. Melancholy am considered possession on collecting everything.','Nor hence hoped her after other known defer his. For county now sister engage had season better had waited. Occasional mrs interested far expression acceptance. Day either mrs talent pulled men rather regret admire but. Life ye sake it shed. Five lady he cold in meet up. Service get met adapted matters offence for. Principles man any insipidity age you simplicity understood. Do offering pleasure no ecstatic whatever on mr directly.','There worse by an of miles civil. Manner before lively wholly am mr indeed expect. Among every merry his yet has her. You mistress get dashwood children off. Met whose marry under the merit. In it do continual consulted no listening. Devonshire sir sex motionless travelling six themselves. So colonel as greatly shewing herself observe ashamed. Demands minutes regular ye to detract is.','Old unsatiable our now but considered travelling impression. In excuse hardly summer in basket misery. By rent an part need. At wrong of of water those linen. Needed oppose seemed how all. Very mrs shed shew gave you. Oh shutters do removing reserved wandered an. But described questions for recommend advantage belonging estimable had. Pianoforte reasonable as so am inhabiting. Chatty design remark and his abroad figure but its.
+','Chapter too parties its letters nor. Cheerful but whatever ladyship disposed yet judgment. Lasted answer oppose to ye months no esteem. Branched is on an ecstatic directly it. Put off continue you denoting returned juvenile. Looked person sister result mr to. Replied demands charmed do viewing ye colonel to so. Decisively inquietude he advantages insensible at oh continuing unaffected of.','Alteration literature to or an sympathize mr imprudence. Of is ferrars subject as enjoyed or tedious cottage. Procuring as in resembled by in agreeable. Next long no gave mr eyes. Admiration advantages no he celebrated so pianoforte unreserved. Not its herself forming charmed amiable. Him why feebly expect future now.','Two assure edward whence the was. Who worthy yet ten boy denote wonder. Weeks views her sight old tears sorry. Additions can suspected its concealed put furnished. Met the why particular devonshire decisively considered partiality. Certain it waiting no entered is. Passed her indeed uneasy shy polite appear denied. Oh less girl no walk. At he spot with five of view.','Prevailed sincerity behaviour to so do principle mr. As departure at no propriety zealously my. On dear rent if girl view. First on smart there he sense. Earnestly enjoyment her you resources. Brother chamber ten old against. Mr be cottage so related minuter is. Delicate say and blessing ladyship exertion few margaret. Delight herself welcome against smiling its for. Suspected discovery by he affection household of principle perfectly he.','Old there any widow law rooms. Agreed but expect repair she nay sir silent person. Direction can dependent one bed situation attempted. His she are man their spite avoid. Her pretended fulfilled extremely education yet. Satisfied did one admitting incommode tolerably how are.');
   
   FUNCTION random_index(p_limit IN PLS_INTEGER) RETURN PLS_INTEGER
   IS
@@ -65,7 +75,7 @@ BEGIN
   
   /*v_jelszo := hash_password(CONCAT(SUBSTR(v_kernev,0,3), TO_CHAR(v_szulido, 'M')));*/
   
-  INSERT INTO felhasznalo (felhasznalonev, jelszo, kernev, veznev, szulido, email, kep) VALUES(v_felhasznalonev, 'dsadasdasd', v_kernev, v_veznev, v_szulido, v_email, v_kep_nev);
+  INSERT INTO felhasznalo (felhasznalonev, jelszo, kernev, veznev, szulido, email, kep) VALUES(v_felhasznalonev, 123, v_kernev, v_veznev, v_szulido, v_email, v_kep_nev);
   COMMIT;
   END LOOP;
   
@@ -75,10 +85,7 @@ BEGIN
     v_poszt_szoveg := poszt_szoveg_list(random_index(poszt_szoveg_list.COUNT));
     
     INSERT INTO poszt (csoportposzt, szoveg, datum, likes, felhasznalo_id) VALUES (round(DBMS_RANDOM.VALUE(0,1)), v_poszt_szoveg, v_poszt_date, v_poszt_like, (SELECT id
-	   FROM (SELECT id
-         FROM felhasznalo
-		 ORDER BY DBMS_RANDOM.VALUE)
-	   WHERE ROWNUM = 1));
+    FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
     COMMIT;
   END LOOP;
   
@@ -91,6 +98,47 @@ BEGIN
     v_csoport_nev := CONCAT(v_csoport_eleje, v_csoport_hatulja);
     
     INSERT INTO csoport (csop_leiras, csop_nev) VALUES (v_csoport_leiras, v_csoport_nev);
+    COMMIT;
+  END LOOP;
+  
+  FOR i IN 1..30 LOOP
+      v_tartalom := uzenetek_list(random_index(uzenetek_list.COUNT));
+      v_datum := rnd_date(TO_DATE('2020-01-01', 'YYYY-MM_DD'), SYSDATE); 
+      
+      INSERT INTO uzenet (tartalom, datum) VALUES (v_tartalom, v_datum);
+      COMMIT;
+  END LOOP;  
+  
+  FOR i IN 1..100 LOOP
+    INSERT INTO uzenetkuldes (kuldo, fogado, uzenet_id) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1),  (SELECT id FROM (SELECT id FROM uzenet ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    COMMIT;
+  END LOOP;
+
+  FOR i IN 1..20 LOOP
+    v_baratok_date := rnd_date(TO_DATE('2020-01-01', 'YYYY-MM_DD'), SYSDATE);
+    
+    INSERT INTO baratok (datum, userid) VALUES (v_baratok_date , (SELECT id
+    FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    COMMIT;
+  END LOOP;
+
+  FOR i IN 1..500 LOOP
+    INSERT INTO kapcsolat (felhasznalo_id, baratok_userid) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM baratok ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    COMMIT;
+  END LOOP;
+  
+  FOR i IN 1..30 LOOP
+    INSERT INTO komment (poszt_id, felhasznalo_id) VALUES ((SELECT id FROM (SELECT id FROM poszt ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    COMMIT;
+  END LOOP;
+  
+  FOR i IN 1..30 LOOP
+    INSERT INTO tartozik (felhasznalo_id, csoport_id) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM csoport ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    COMMIT;
+  END LOOP;
+  
+  FOR i IN 1..500 LOOP
+    INSERT INTO likes (felhasznalo_id, poszt_id) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM poszt ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
     COMMIT;
   END LOOP;
 END;

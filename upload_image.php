@@ -6,7 +6,7 @@ if (isset($_FILES)) {
         oci_bind_by_name($user_stmt, ":id", $_SESSION["id"]);
         oci_execute($user_stmt);
         $user = oci_fetch_object($user_stmt);
-        $imgName = time() . '_' . $_FILES["kep"]["name"];
+        $imgName = $_FILES["kep"]["name"];
         $target = 'uploads/' . $imgName;
 
         if(!is_null($user->KEP)){
