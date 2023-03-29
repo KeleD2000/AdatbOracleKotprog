@@ -89,7 +89,7 @@ include("navbar.php");
         <div class="media-content">
             <div class="field">
                 <p class="control">
-                    <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                    <textarea style="resize: none;" class="textarea" placeholder="Add a comment..."></textarea>
                 </p>
             </div>
             <div class="field">

@@ -7,7 +7,6 @@ if(isset($_POST["login"])){
     oci_execute($stmt);
 
     $usernameCheck = oci_fetch($stmt);
-    var_dump($usernameCheck);
     if($usernameCheck){
         //talált ilyen felhasználónevet
         $stmt_pw = oci_parse($con, "SELECT * FROM felhasznalo WHERE felhasznalonev = :username AND jelszo = :password");
@@ -28,7 +27,7 @@ if(isset($_POST["login"])){
             header("location: index.php?error=Hibás jelszó");
         }
     }else{
-        //header("location: index.php?error=Nincs ilyen felhasználó");
+        header("location: index.php?error=Nincs ilyen felhasználó");
     }
 }
 

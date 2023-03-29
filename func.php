@@ -22,6 +22,7 @@ function html_footer(){
     <script src="js/navbar.js"></script>
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/poszt.js"></script>
+    <script src="js/message.js"></script>
     </body>
     </html>';
 }
