@@ -31,7 +31,7 @@ include("navbar.php");
                 </form>
             </div>
         </div>
-        <div id="poszt_box" class="box">
+        <div id="poszt_box">
             
         </div>
     </div>
