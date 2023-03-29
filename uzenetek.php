@@ -16,7 +16,7 @@ oci_execute($baratok_stid);
     <div class="columns">
         <div class="column is-one-third">
             <h1 class="title mt-6">Barátok</h1>
-            <div class="box">
+            <div class="box" id="friend_box">
                 <?php while (($row = oci_fetch_array($baratok_stid, OCI_ASSOC)) != false) : ?>
                     <div id="message" class="media friend" data-id="<?php echo $row["ID"]; ?>">
                         <figure class="media-left">

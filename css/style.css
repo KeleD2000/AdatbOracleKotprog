@@ -45,6 +45,10 @@ body{
     background-color: #ebecf0;
 }
 
+#message_box{
+  height: 400px;
+  overflow-y: auto;
+}
 
  .chat-container {
     border: 2px solid #dedede;
@@ -57,6 +61,11 @@ body{
   .darker {
     border-color: #ccc;
     background-color: #ddd;
+  }
+
+  #friend_box{
+    height: 620px;
+    overflow-y: auto;
   }
   
   

@@ -1,4 +1,4 @@
-<nav class="navbar is-info" role="navigation" aria-label="main navigation">
+<nav class="navbar is-info is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="container has-text-weight-semibold">
         <div class="navbar-brand">
             
