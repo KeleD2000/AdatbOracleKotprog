@@ -1,9 +1,9 @@
 <?php
 require_once("init.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["felhasznalo_id"])) {
-    $sql = "SELECT poszt.*, felhasznalo.* FROM poszt, felhasznalo WHERE poszt.felhasznalo_id = felhasznalo.id AND csoportposzt = 0";
+    $sql = "SELECT poszt.*, felhasznalo.kep, felhasznalo.veznev, felhasznalo.kernev, felhasznalo.felhasznalonev FROM poszt, felhasznalo WHERE poszt.felhasznalo_id = felhasznalo.id AND csoportposzt = 0";
     if (isset($_POST["felhasznalo_id"]) && $_POST["felhasznalo_id"] > 0) {
-        $sql .= " AND felhasznalo.id = " . $_POST["felhasznalo_id"];
+        $sql .= " AND poszt.felhasznalo_id = " . $_POST["felhasznalo_id"];
     }
     $stmt_poszt = oci_parse($con, $sql);
     //oci_bind_by_name($stmt_poszt, ":userid", $_SESSION["id"]);
