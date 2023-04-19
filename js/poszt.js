@@ -18,6 +18,7 @@ function ajaxRequest(select_id) {
       $("#poszt_box").append("<div><strong>Nincsenek posztok.</strong></div>");
     } else {
       for (const key in json_response) {
+        console.log(json_response);
         let img_src =
           json_response[key]["KEP"] == undefined
             ? "image/profileavatar.webp"
@@ -73,7 +74,7 @@ function ajaxRequest(select_id) {
 
           if(select_id > 0){
             html += '<div class="media-right">' +
-            '<a href="posztTorlese.php">'+
+            '<a href="posztTorlese.php?poszt_id='+json_response[key]["ID"]+'">'+
             '<button class="delete">' +
             "</button>"+
             "</a>"+
