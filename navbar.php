@@ -28,6 +28,9 @@
                         <a href="csoportok.php" class="navbar-item">
                             Meglévő csoportok
                         </a>
+                        <a href="sajatcsoportok.php" class="navbar-item">
+                            Saját csoportjaim
+                        </a>
                     </div>
                 </div>
 

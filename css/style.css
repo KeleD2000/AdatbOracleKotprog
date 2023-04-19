@@ -67,5 +67,13 @@ body{
     height: 620px;
     overflow-y: auto;
   }
+
+  #csop_box{
+    cursor: pointer;
+  }
+  #csop_box:hover{
+    background-color: #3e8ed0;
+
+  }
   
   

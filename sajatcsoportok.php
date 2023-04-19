@@ -4,12 +4,24 @@ if (!isset($_SESSION["login"])) header("location: index.php");
 html_header("Csoportok");
 include("navbar.php");
 
-$sql = "SELECT * FROM csoport ORDER BY id DESC";
+$sql = "SELECT csoport.* FROM csoport, tartozik, felhasznalo WHERE csoport.id = tartozik.csoport_id AND tartozik.felhasznalo_id = felhasznalo.id ORDER BY csoport.id DESC";
 $stmt_csoport = oci_parse($con, $sql);
 oci_execute($stmt_csoport);
 $csoportok = [];
 while (($row = oci_fetch_array($stmt_csoport, OCI_ASSOC)) != false) {
     $csoportok[] = $row;
+}
+
+if(isset($_GET["delete"])){
+    $delete_csop = oci_parse($con, "DELETE FROM csoport WHERE id = :id");
+    oci_bind_by_name($delete_csop, ":id", $_GET["delete"]);
+    oci_execute($delete_csop);
+
+    $delete_tartozik = oci_parse($con, "DELETE FROM tartozik WHERE felhasznalo_id = :felhasz_id AND csoport_id = :csoport_id");
+    oci_bind_by_name($delete_tartozik, ":felhasz_id", $_SESSION["id"]);
+    oci_bind_by_name($delete_tartozik, ":csoport_id", $_GET["delete"]);
+    oci_execute($delete_tartozik);
+    header("location: sajatcsoportok.php");
 }
 ?>
 <div class="container">
@@ -30,7 +42,7 @@ while (($row = oci_fetch_array($stmt_csoport, OCI_ASSOC)) != false) {
                     </div>
 
                     <div class="media-right">
-                        <!--<a href="csoportok.php?delete=<?=$csoport["ID"]?>" class="delete"></a>-->
+                        <a href="sajatcsoportok.php?delete=<?=$csoport["ID"]?>" class="delete"></a>
                     </div>
                 </article>
             </div>

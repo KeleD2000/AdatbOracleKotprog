@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["felhasznalo_id"])) {
     if (isset($_POST["felhasznalo_id"]) && $_POST["felhasznalo_id"] > 0) {
         $sql .= " AND poszt.felhasznalo_id = " . $_POST["felhasznalo_id"];
     }
+    $sql .= " ORDER BY poszt.id DESC";
     $stmt_poszt = oci_parse($con, $sql);
     //oci_bind_by_name($stmt_poszt, ":userid", $_SESSION["id"]);
     oci_execute($stmt_poszt);

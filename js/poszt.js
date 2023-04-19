@@ -63,17 +63,18 @@ function ajaxRequest(select_id) {
           '<i class="fa-regular fa-comment"></i>' +
           "</span>" +
           "</a>" +
-          '<a class="level-item" aria-label="like" href="editPoszt.php">' +
-          '<span class="icon is-small">' +
-          '<i class="fa-regular fa-pen-to-square"></i>' +
-          "</span>" +
-          "</a>" +
           "</div>" +
           "</nav>" +
           "</div>";
 
           if(select_id > 0){
-            html += '<div class="media-right">' +
+            html += 
+            '<a class="level-item" aria-label="like" href="editPoszt.php?poszt_id='+json_response[key]["ID"]+'">' +
+            '<span class="icon is-small">' +
+            '<i class="fa-regular fa-pen-to-square"></i>' +
+            "</span>" +
+            "</a>" +
+            '<div class="media-right">' +
             '<a href="posztTorlese.php?poszt_id='+json_response[key]["ID"]+'">'+
             '<button class="delete">' +
             "</button>"+
