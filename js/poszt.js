@@ -58,7 +58,7 @@ function ajaxRequest(select_id) {
           '<i class="fa-solid fa-heart"></i>' +
           "</span>" +
           "</a>" +
-          '<a class="level-item" aria-label="like" href="komment.php">' +
+          '<a class="level-item" aria-label="like" href="komment.php?poszt_id='+json_response[key]["ID"]+'">' +
           '<span class="icon is-small">' +
           '<i class="fa-regular fa-comment"></i>' +
           "</span>" +

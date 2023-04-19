@@ -1,89 +1,50 @@
 <?php
 require_once("init.php");
-if (!isset($_SESSION["login"])) header("location: index.php");
+if (!isset($_SESSION["login"]) || !isset($_GET["poszt_id"])) header("location: index.php");
 html_header("Üdvözöllek");
 include("navbar.php");
+
+$stmt_barat = oci_parse($con, "SELECT felhasznalo.veznev, felhasznalo.kernev, felhasznalo.felhasznalonev, felhasznalo.kep, komment.szoveg FROM komment, felhasznalo WHERE komment.felhasznalo_id = felhasznalo.id AND komment.poszt_id = :poszt_id");
+oci_bind_by_name($stmt_barat, ":poszt_id", $_GET["poszt_id"]);
+oci_execute($stmt_barat);
+$kommentek = [];
+while (($row = oci_fetch_array($stmt_barat, OCI_ASSOC)) != false) {
+    $kommentek[] = $row;
+}
 ?>
 <section class="container">
     <h1 class="title mt-3">Kommentek</h1>
-    <article class="media">
-        <figure class="media-left">
-            <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
-            </p>
-        </figure>
-        <div class="media-content">
-            <div class="content">
-                <p>
-                    <strong>Barbara Middleton</strong>
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies
-                    elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus
-                    turpis.
-                    <br>
-                    <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+    <?php if (empty($kommentek)) : ?>
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
                 </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>Barbara Middleton</strong>
+                        <br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies
+                        elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus
+                        turpis.
+                        <br>
+                        <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+                    </p>
+                </div>
+
             </div>
+        </article>
 
-            <article class="media">
-                <figure class="media-left">
-                    <p class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/96x96.png">
-                    </p>
-                </figure>
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <strong>Sean Brown</strong>
-                            <br>
-                            Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque habitant morbi
-                            tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam blandit nisl a
-                            nulla sagittis, a lobortis leo feugiat.
-                            <br>
-                            <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                        </p>
-                    </div>
-
-                    <article class="media">
-                        Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem cursus ullamcorper
-                        sit amet nec massa.
-                    </article>
-
-                    <article class="media">
-                        Morbi vitae diam et purus tincidunt porttitor vel vitae augue. Praesent malesuada metus sed
-                        pharetra euismod. Cras tellus odio, tincidunt iaculis diam non, porta aliquet tortor.
-                    </article>
-                </div>
-            </article>
-
-            <article class="media">
-                <figure class="media-left">
-                    <p class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/96x96.png">
-                    </p>
-                </figure>
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <strong>Kayli Eunice </strong>
-                            <br>
-                            Sed convallis scelerisque mauris, non pulvinar nunc mattis vel. Maecenas varius felis
-                            sit amet magna vestibulum euismod malesuada cursus libero. Vestibulum ante ipsum primis
-                            in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus lacinia non nisl id
-                            feugiat.
-                            <br>
-                            <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                        </p>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </article>
+    <?php else : ?>
+        <div><strong>Nincsenek kommentek</strong></div>
+    <?php endif; ?>
 
     <article class="media">
         <figure class="media-left">
             <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
+                <img src="<?php echo (!is_null($_SESSION["img"])) ? "uploads/" . $_SESSION["img"] : "image/profileavatar.webp" ?>">
             </p>
         </figure>
         <div class="media-content">
