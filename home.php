@@ -4,12 +4,14 @@ if (!isset($_SESSION["login"])) header("location: index.php");
 html_header("Üdvözöllek");
 include("navbar.php");
 ?>
+
 <body>
     <div class="container">
         <h1 class="title mt-6">Hírfolyam</h1>
         <div class="field">
             <div class="control">
-                <textarea style="resize: none;" class="textarea" id="new_poszt" placeholder="Mi jár a fejedben?"></textarea>
+                <textarea style="resize: none;" class="textarea" id="new_poszt"
+                    placeholder="Mi jár a fejedben?"></textarea>
             </div>
         </div>
         <div class="columns">

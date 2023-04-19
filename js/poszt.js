@@ -62,7 +62,7 @@ function ajaxRequest(select_id) {
           '<i class="fa-regular fa-comment"></i>' +
           "</span>" +
           "</a>" +
-          '<a class="level-item" aria-label="like" href="komment.php">' +
+          '<a class="level-item" aria-label="like" href="editPoszt.php">' +
           '<span class="icon is-small">' +
           '<i class="fa-regular fa-pen-to-square"></i>' +
           "</span>" +
@@ -73,7 +73,10 @@ function ajaxRequest(select_id) {
 
           if(select_id > 0){
             html += '<div class="media-right">' +
-            '<button class="delete"></button>' +
+            '<a href="posztTorlese.php">'+
+            '<button class="delete">' +
+            "</button>"+
+            "</a>"+
             '</div>';
           }
           
