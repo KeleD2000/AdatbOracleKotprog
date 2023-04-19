@@ -1,7 +1,7 @@
 <?php
 require_once("init.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["felhasznalo_id"])) {
-    $sql = "SELECT poszt.*, felhasznalo.kep, felhasznalo.veznev, felhasznalo.kernev, felhasznalo.felhasznalonev FROM poszt, felhasznalo WHERE poszt.felhasznalo_id = felhasznalo.id AND csoportposzt = 0";
+    $sql = "SELECT poszt.*, felhasznalo.kep, felhasznalo.veznev, felhasznalo.kernev, felhasznalo.felhasznalonev FROM poszt, felhasznalo WHERE poszt.felhasznalo_id = felhasznalo.id AND csoportposzt IS NULL";
     if (isset($_POST["felhasznalo_id"]) && $_POST["felhasznalo_id"] > 0) {
         $sql .= " AND poszt.felhasznalo_id = " . $_POST["felhasznalo_id"];
     }
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["poszt_szoveg"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kuldo"]) && isset($_POST["fogado"])) {
-    $stmt_message = oci_parse($con, "SELECT uzenet.*, uzenetkuldes.* FROM uzenet, uzenetkuldes WHERE uzenet.id = uzenetkuldes.uzenet_id AND ((kuldo = :kuldo AND fogado = :fogado) OR (kuldo = :fogado AND fogado = :kuldo)) ORDER BY uzenet.id DESC");
+    $stmt_message = oci_parse($con, "SELECT uzenet.*, uzenetkuldes.* FROM uzenet, uzenetkuldes WHERE uzenet.id = uzenetkuldes.uzenet_id AND ((kuldo = :kuldo AND fogado = :fogado) OR (kuldo = :fogado AND fogado = :kuldo)) ORDER BY uzenet.id ASC");
     oci_bind_by_name($stmt_message, ":kuldo", $_POST["kuldo"]);
     oci_bind_by_name($stmt_message, ":fogado", $_POST["fogado"]);
     oci_execute($stmt_message);
@@ -37,14 +37,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kuldo"]) && isset($_PO
     while (($row = oci_fetch_array($stmt_message, OCI_ASSOC)) != false) {
         if ($row["KULDO"] == $_POST["kuldo"]) {
             $output .= '<div class="chat-container">
-            <p style="text-align: right;">' . $row["TARTALOM"] . '</p>
-        </div>';
+            <p style="text-align: right;">' . $row["TARTALOM"] . '</p>';
+            $output .= '</div>';
         } else {
             $output .= '<div class="chat-container darker">
-            <p>' . $row["TARTALOM"] . '</p>
-        </div>';
+            <p>' . $row["TARTALOM"] . '</p>';
+            $output .= '<div style="text-align: right">
+    <a href="deleteUzenet.php?uzenet_id=' . $row["UZENET_ID"] . '" class="delete"></a>
+</div>';
+            $output .= '</div>';
         }
     }
+
     $img_src = (!is_null($_SESSION["img"])) ? "uploads/" . $_SESSION["img"] : "image/profileavatar.webp";
     $output .= '</div><article class="media">
     <figure class="media-left">
@@ -55,15 +59,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kuldo"]) && isset($_PO
     <div class="media-content">
         <div class="field">
             <p class="control">
-                <textarea style="resize: none;" class="textarea" placeholder="Írj ide egy üzenetet...."></textarea>
+                <textarea style="resize: none;" class="textarea msg_area" placeholder="Írj ide egy üzenetet...."></textarea>
             </p>
         </div>
         <div class="field">
             <p class="control">
-                <button class="button">Küldés</button>
+                <button id="' . $_POST["fogado"] . '" data-id="' . $_POST["kuldo"] . '" class="button send_msg_btn">Küldés</button>
             </p>
         </div>
     </div>
 </article>';
     echo $output;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kuldo"]) && isset($_POST["fogado"]) && isset($_POST["uzenet"])) {
+    $date = date("y-M-d", strtotime(Date("Y-m-d")));
+    $stmt = oci_parse($con, 'INSERT INTO uzenet (tartalom, datum) VALUES(:tartalom, :datum) RETURNING ID INTO :last_msg_id');
+    oci_bind_by_name($stmt, ":tartalom", $_POST["uzenet"]);
+    oci_bind_by_name($stmt, ":datum", $date);
+    oci_bind_by_name($stmt, ":last_msg_id", $last_msg_id);
+    if (oci_execute($stmt)) {
+        $stmt_uzenetkuldes = oci_parse($con, 'INSERT INTO uzenetkuldes (kuldo, fogado, uzenet_id) VALUES(:kuldo, :fogado, :uzenet_id)');
+        oci_bind_by_name($stmt_uzenetkuldes, ":kuldo", $_POST["kuldo"]);
+        oci_bind_by_name($stmt_uzenetkuldes, ":fogado", $_POST["fogado"]);
+        oci_bind_by_name($stmt_uzenetkuldes, ":uzenet_id", $last_msg_id);
+        if (oci_execute($stmt_uzenetkuldes)) {
+            echo "1";
+        }
+    }
 }

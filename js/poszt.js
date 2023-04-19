@@ -18,7 +18,7 @@ function ajaxRequest(select_id) {
       $("#poszt_box").append("<div><strong>Nincsenek posztok.</strong></div>");
     } else {
       for (const key in json_response) {
-        console.log(json_response);
+
         let img_src =
           json_response[key]["KEP"] == undefined
             ? "image/profileavatar.webp"
