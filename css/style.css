@@ -3,12 +3,6 @@ body{
     padding: 0;
 }
 
-.boritokep{
-    background-image: url("../image/21122358_1392847700801056_8068081303324758712_o.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .profil_img{
     position: relative;
     top: -75px;

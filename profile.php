@@ -9,15 +9,8 @@ oci_bind_by_name($user_stmt, ":id", $_SESSION["id"]);
 oci_execute($user_stmt);
 $user = oci_fetch_object($user_stmt);
 ?>
-<div class="container">
-    <section class="hero boritokep is-link is-medium">
-        <div class="hero-body">
-        </div>
-    </section>
+<div class="container" style="margin-top: 120px">
     <figure class="image profil_img is-128x128">
-        <!-- 
-            TODO: Oracle karakterkódolást meg kell oldalni.
-        -->
         <img class="is-rounded" style="cursor: pointer" onclick="openModal(this);" src="<?php echo (!empty($user->KEP)) ? "uploads/" . $user->KEP : "image/profileavatar.webp"; ?>">
     </figure>
     <form action="upload_image.php" method="POST" enctype="multipart/form-data">
@@ -40,19 +33,60 @@ $user = oci_fetch_object($user_stmt);
     <?php endif; ?>
     <div class="tabs">
         <ul>
-            <li onclick="openTab(event,'bejegyzesek')" class="is-active tab"><a>Bejegyzések</a></li>
-            <li class="tab" onclick="openTab(event,'ismerosok')"><a>Ismerősök</a></li>
+            <li class="tab is-active" onclick="openTab(event,'ismerosok')"><a>Ismerősök</a></li>
             <li class="tab" onclick="openTab(event,'nevjegy')"><a>Névjegy</a></li>
         </ul>
     </div>
-    <div class="box content-tab" id="bejegyzesek">
-        Bejegyzések
-    </div>
-    <div class="box content-tab" id="ismerosok" style="display: none">
+    <div class="box content-tab" id="ismerosok">
         <?php include("barat_list.php"); ?>
     </div>
     <div class="box content-tab" id="nevjegy" style="display: none">
-        Névjegy
+        <form action="update_user_data.php" method="post">
+            <div class="container">
+                <div class="field">
+                    <div class="control">
+                        <label>Vezetéknév</label>
+                        <input class="input" name="veznev" value="<?php echo $user->VEZNEV ?>" type="text">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label>Keresztnév</label>
+                        <input class="input" name="kernev" value="<?php echo $user->KERNEV ?>" type="text">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label>Születési idő</label>
+                        <input class="input" name="szulido" value="<?php echo date("Y-m-d", strtotime($user->SZULIDO)) ?>" type="date">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label>Felhasználónév</label>
+                        <input class="input" name="felhasznalonev" value="<?php echo $user->FELHASZNALONEV ?>" type="text">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label>Jelszó</label>
+                        <input class="input" name="jelszo" value="<?php echo $user->JELSZO ?>" type="password">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label>Email</label>
+                        <input class="input" name="email" value="<?php echo $user->EMAIL ?>" type="text">
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column mt-5">
+                        <div class="field mt-5">
+                            <button type="submit" name="edit_user" class="button">Módosítás</button>
+                        </div>
+                    </div>
+                </div>
+        </form>
     </div>
     <div id="modal1" class="modal">
         <div class="modal-background"></div>
