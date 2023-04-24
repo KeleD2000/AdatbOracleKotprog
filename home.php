@@ -4,14 +4,14 @@ if (!isset($_SESSION["login"])) header("location: index.php");
 html_header("Üdvözöllek");
 include("navbar.php");
 ?>
-
-<body>
     <div class="container">
-        <h1 class="title mt-6">Hírfolyam</h1>
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <h1 class="title mt-6">Hírfolyam</h1>
+                <a href="erdekessegek.php" class="button is-success">Poszt érdekességek</a>
+        </div>
         <div class="field">
             <div class="control">
-                <textarea style="resize: none;" class="textarea" id="new_poszt"
-                    placeholder="Mi jár a fejedben?"></textarea>
+                <textarea style="resize: none;" class="textarea" id="new_poszt" placeholder="Mi jár a fejedben?"></textarea>
             </div>
         </div>
         <div class="columns">
@@ -34,7 +34,7 @@ include("navbar.php");
             </div>
         </div>
         <div id="poszt_box">
-            
+
         </div>
     </div>
     <?php html_footer(); ?>

@@ -11,15 +11,11 @@ GROUP BY EXTRACT(MONTH FROM felhasznalo.szulido), csoport.csop_nev
 
 Dátum szerint csoportosítja a bejelentkezett felhasználónak hány ismerőse van
 
-SELECT baratok.datum, COUNT(*) FROM baratok 
+SELECT baratok.datum, COUNT(*) as count FROM baratok 
 INNER JOIN kapcsolat ON baratok.id = kapcsolat.baratok_userid
 WHERE kapcsolat.felhasznalo_id = 201
 GROUP BY baratok.datum
 
-
-Posztonként lájkok száma
-
-SELECT poszt.id, COUNT(*) FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id
 
 Felhasználónként megszámolja hogy mennyi posztja van.
 
@@ -27,6 +23,14 @@ SELECT felhasznalo.kernev, COUNT(poszt.id) AS post_count
 FROM felhasznalo
 LEFT JOIN poszt ON poszt.felhasznalo_id = felhasznalo.id
 GROUP BY felhasznalo.kernev;
+
+
+//UTOLSÓ KETTŐ NINCS MÉG BEIRVA
+
+
+Posztonként lájkok száma
+
+SELECT poszt.id, COUNT(*) as like_count FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id
 
 
 Posztonként megszámolja a kommenteket.

@@ -8,6 +8,25 @@ $user_stmt = oci_parse($con, "SELECT * FROM felhasznalo WHERE id = :id");
 oci_bind_by_name($user_stmt, ":id", $_SESSION["id"]);
 oci_execute($user_stmt);
 $user = oci_fetch_object($user_stmt);
+
+$baratok_stmt = oci_parse($con, "SELECT baratok.datum, COUNT(*) as count FROM baratok 
+INNER JOIN kapcsolat ON baratok.id = kapcsolat.baratok_userid
+WHERE kapcsolat.felhasznalo_id = :felhasz_id
+GROUP BY baratok.datum
+");
+oci_bind_by_name($baratok_stmt, ":felhasz_id", $_SESSION["id"]);
+oci_execute($baratok_stmt);
+
+$baratok_stat = [];
+while (($row = oci_fetch_array($baratok_stmt, OCI_ASSOC)) != false) {
+    $baratok_stat[] = $row;
+}
+
+echo "<pre>" . print_r($baratok_stat, true) . "</pre>";
+
+$datum = array_column($baratok_stat, "DATUM");
+$count = array_column($baratok_stat, "COUNT");
+
 ?>
 <div class="container" style="margin-top: 120px">
     <figure class="image profil_img is-128x128">
@@ -38,6 +57,25 @@ $user = oci_fetch_object($user_stmt);
         </ul>
     </div>
     <div class="box content-tab" id="ismerosok">
+        <h1 class="title is-4">Ismerősök száma adott napon</h1>
+        <div class="box">
+            <table class="table" style="width: 100%">
+                <tbody>
+                    <tr>
+                        <th>Hónap:</th>
+                        <?php foreach ($datum as $data) : ?>
+                            <td><?php echo date("Y-m-d", strtotime($data)); ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                    <tr>
+                        <th>Ismerősök száma:</th>
+                        <?php foreach ($count as $data) : ?>
+                            <td><?php echo $data; ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <?php include("barat_list.php"); ?>
     </div>
     <div class="box content-tab" id="nevjegy" style="display: none">

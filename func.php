@@ -24,8 +24,6 @@ function html_footer(){
     <script src="js/poszt.js"></script>
     <script src="js/message.js"></script>
     <script src="js/csoport.js"></script>
-    <footer class="footer">
-</footer>
     </body>
     </html>';
 }
