@@ -18,7 +18,7 @@ function ajaxRequest(select_id) {
       $("#poszt_box").append("<div><strong>Nincsenek posztok.</strong></div>");
     } else {
       for (const key in json_response) {
-
+        console.log(json_response[key]);
         let img_src =
           json_response[key]["KEP"] == undefined
             ? "image/profileavatar.webp"
@@ -48,17 +48,23 @@ function ajaxRequest(select_id) {
           "</div>" +
           '<nav class="level is-mobile">' +
           '<div class="level-left">' +
-          '<a class="level-item" aria-label="retweet">' +
-          '<span class="icon is-small">' +
-          '<i class="fa-regular fa-heart"></i>' +
-          "</span>" +
-          "</a>" +
-          '<a class="level-item" aria-label="like">' +
-          '<span class="icon is-small">' +
-          '<i class="fa-solid fa-heart"></i>' +
-          "</span>" +
-          "</a>" +
-          '<a class="level-item" aria-label="like" href="komment.php?poszt_id='+json_response[key]["ID"]+'">' +
+          json_response[key]["LIKE_COUNT"];
+          
+          if(json_response[key]["like"] == "0"){
+            html += '<a href="like.php?poszt_id='+json_response[key]["ID"]+'" class="level-item" aria-label="retweet">' +
+            '<span class="icon is-small">' +
+            '<i class="fa-regular fa-heart"></i>' +
+            "</span>" +
+            "</a>";
+          }else{
+            html += '<a href="like.php?poszt_id='+json_response[key]["ID"]+'" class="level-item" aria-label="like">' +
+            '<span class="icon is-small">' +
+            '<i class="fa-solid fa-heart"></i>' +
+            "</span>" +
+            "</a>";
+          }
+          
+          html += '<a class="level-item" aria-label="like" href="komment.php?poszt_id='+json_response[key]["ID"]+'">' +
           '<span class="icon is-small">' +
           '<i class="fa-regular fa-comment"></i>' +
           "</span>" +

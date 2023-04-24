@@ -1,7 +1,7 @@
 <?php
 require_once("init.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["felhasznalo_id"])) {
-    $sql = "SELECT poszt.*, felhasznalo.kep, felhasznalo.veznev, felhasznalo.kernev, felhasznalo.felhasznalonev FROM poszt, felhasznalo WHERE poszt.felhasznalo_id = felhasznalo.id AND csoportposzt IS NULL";
+    $sql = "SELECT poszt.*, felhasznalo.kep, felhasznalo.veznev, felhasznalo.kernev, felhasznalo.felhasznalonev, (SELECT COUNT(*) FROM likes WHERE poszt_id = poszt.id) as like_count FROM poszt, felhasznalo WHERE poszt.felhasznalo_id = felhasznalo.id AND csoportposzt IS NULL";
     if (isset($_POST["felhasznalo_id"]) && $_POST["felhasznalo_id"] > 0) {
         $sql .= " AND poszt.felhasznalo_id = " . $_POST["felhasznalo_id"];
     }
@@ -13,6 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["felhasznalo_id"])) {
     while (($row = oci_fetch_array($stmt_poszt, OCI_ASSOC)) != false) {
         $posztok[] = $row;
     }
+    $stmt_like = oci_parse($con, "SELECT * FROM likes WHERE poszt_id = :poszt_id AND felhasznalo_id = :felhasznalo_id");
+    foreach($posztok as $key => $p){
+        oci_bind_by_name($stmt_like, ":poszt_id", $posztok[$key]["ID"]);
+        oci_bind_by_name($stmt_like, ":felhasznalo_id", $_SESSION["id"]);
+        oci_execute($stmt_like);
+        $like = oci_fetch_object($stmt_like);
+        if($like){
+            $posztok[$key]["like"] = "1";
+        }else{
+            $posztok[$key]["like"] = "0";
+        }
+    }
+  
+    //echo "<pre>" . print_r($posztok, true) . "</pre>";
     echo json_encode($posztok);
 }
 
