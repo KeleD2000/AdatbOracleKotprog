@@ -20,3 +20,19 @@ GROUP BY baratok.datum
 Posztonként lájkok száma
 
 SELECT poszt.id, COUNT(*) FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id
+
+Felhasználónként megszámolja hogy mennyi posztja van.
+
+SELECT felhasznalo.kernev, COUNT(poszt.id) AS post_count
+FROM felhasznalo
+LEFT JOIN poszt ON poszt.felhasznalo_id = felhasznalo.id
+GROUP BY felhasznalo.kernev;
+
+
+Posztonként megszámolja a kommenteket.
+
+SELECT poszt.id, COUNT(komment.id) AS komment_count
+FROM poszt
+LEFT JOIN komment ON komment.poszt_id = poszt.id
+GROUP BY poszt.id
+ORDER BY komment_count DESC;

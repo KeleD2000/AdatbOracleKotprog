@@ -13,3 +13,35 @@ EXCEPTION
     WHEN ex THEN
         RAISE_APPLICATION_ERROR(-20001, 'Trágár kifejezések használata tilos!');
 END;
+
+
+
+
+CREATE OR REPLACE TRIGGER user_profile_update
+AFTER UPDATE ON felhasznalo
+FOR EACH ROW
+DECLARE
+    v_action VARCHAR2(10);
+BEGIN
+    -- Az v_action változóban eltároljuk, hogy milyen művelet történt a felhasználói adatokkal
+    IF UPDATING('felhasznalonev') THEN
+        v_action := 'Felhasználónév módosítva';
+    ELSEIF UPDATING('veznev') THEN
+        v_action := 'Vezetéknév módosítva';
+    ELSEIF UPDATING('kernev') THEN
+        v_action := 'Keresztnév módosítva';
+    ELSEIF UPDATING('szulido') THEN
+        v_action := 'Születési idő módosítva';
+    ELSEIF UPDATING('jelszo') THEN
+        v_action := 'Jelszó módosítva';
+    ELSEIF UPDATING('email') THEN
+        v_action := 'Email módosítva';
+    ELSEIF UPDATING('kep') THEN
+        v_action := 'Profilkép módosítva';
+    ELSE
+        v_action := 'Profil módosítva';
+    END IF;
+    INSERT INTO profile_history (felhasznalo_id, action)
+    VALUES (:OLD.felhasznalo_id, v_action);
+END;
+/
