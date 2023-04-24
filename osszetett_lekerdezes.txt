@@ -1,0 +1,22 @@
+Csoportok tagjainak száma
+
+SELECT csoport.csop_nev, COUNT(*) FROM csoport, tartozik WHERE csoport.id = tartozik.csoport_id GROUP BY csoport.csop_nev
+
+Csoportonként az adott hónapban hány születésnapos van
+
+SELECT csoport.csop_nev, EXTRACT(MONTH FROM felhasznalo.szulido) as honap, COUNT(*) as num FROM felhasznalo
+INNER JOIN tartozik ON felhasznalo.id = tartozik.felhasznalo_id
+INNER JOIN csoport ON tartozik.csoport_id = csoport.id 
+GROUP BY EXTRACT(MONTH FROM felhasznalo.szulido), csoport.csop_nev
+
+Dátum szerint csoportosítja a bejelentkezett felhasználónak hány ismerőse van
+
+SELECT baratok.datum, COUNT(*) FROM baratok 
+INNER JOIN kapcsolat ON baratok.id = kapcsolat.baratok_userid
+WHERE kapcsolat.felhasznalo_id = 201
+GROUP BY baratok.datum
+
+
+Posztonként lájkok száma
+
+SELECT poszt.id, COUNT(*) FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id

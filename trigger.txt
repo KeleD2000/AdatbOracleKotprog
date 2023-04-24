@@ -1,0 +1,15 @@
+
+
+CREATE OR REPLACE TRIGGER check_tragar_kif
+BEFORE INSERT OR UPDATE ON felhasznalo
+FOR EACH ROW
+DECLARE
+    ex EXCEPTION;
+BEGIN
+    IF REGEXP_LIKE(:new.felhasznalonev, '.*(fasz|bazdmeg|szar|segg|fos|köcsög|kurva|anyád).*', 'i') THEN
+        RAISE ex;
+    END IF;
+EXCEPTION
+    WHEN ex THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Trágár kifejezések használata tilos!');
+END;
