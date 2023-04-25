@@ -96,7 +96,7 @@ $num = array_column($new_arr, "NUM");
     <h1 class="title mt-6">Csoportok</h1>
     <?php if (!empty($csoportok)) : ?>
         <?php foreach ($csoportok as $csoport) : ?>
-            <div id="csop_box" data-id="<?= $csoport["ID"] ?>" class="box">
+            <div id="csop_box" onclick="viewPoszt(<?php echo $csoport['ID'] ?>)" data-id="<?= $csoport["ID"] ?>" class="box">
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
@@ -119,3 +119,8 @@ $num = array_column($new_arr, "NUM");
         <div><strong>Nincsenek csoportok.</strong></div>
     <?php endif; ?>
 </div>
+<script>
+    function viewPoszt(csop_id) {
+        window.location.href = "viewcsoport.php?csop_id=" + csop_id;
+    }
+</script>

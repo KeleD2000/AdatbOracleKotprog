@@ -23,7 +23,6 @@ function html_footer(){
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/poszt.js"></script>
     <script src="js/message.js"></script>
-    <script src="js/csoport.js"></script>
     </body>
     </html>';
 }

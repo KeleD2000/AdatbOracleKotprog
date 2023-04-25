@@ -4,7 +4,7 @@ if (!isset($_GET["poszt_id"]) || !isset($_SESSION["id"])) {
     header("location: home.php");
 }
 
-$stmt_like = oci_parse($con, "SELECT * FROM likes WHERE poszt_id = :poszt_id AND felhasznalo_id = :felhasznalo_id");
+/*$stmt_like = oci_parse($con, "SELECT * FROM likes WHERE poszt_id = :poszt_id AND felhasznalo_id = :felhasznalo_id");
 oci_bind_by_name($stmt_like, ":poszt_id", $_GET["poszt_id"]);
 oci_bind_by_name($stmt_like, ":felhasznalo_id", $_SESSION["id"]);
 oci_execute($stmt_like);
@@ -21,4 +21,10 @@ if ($like) {
     oci_bind_by_name($stmt_insert, ":felhasznalo_id", $_SESSION["id"]);
     oci_execute($stmt_insert);
     header("location: home.php");
-}
+}*/
+
+$stmt = oci_parse($con, "BEGIN like_procedure(:poszt_id, :felhasznalo_id); END;");
+oci_bind_by_name($stmt, ":poszt_id", $_GET["poszt_id"]);
+oci_bind_by_name($stmt, ":felhasznalo_id", $_SESSION["id"]);
+oci_execute($stmt);
+header("location: home.php");

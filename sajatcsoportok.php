@@ -12,7 +12,7 @@ while (($row = oci_fetch_array($stmt_csoport, OCI_ASSOC)) != false) {
     $csoportok[] = $row;
 }
 
-if(isset($_GET["delete"])){
+if (isset($_GET["delete"])) {
     $delete_csop = oci_parse($con, "DELETE FROM csoport WHERE id = :id");
     oci_bind_by_name($delete_csop, ":id", $_GET["delete"]);
     oci_execute($delete_csop);
@@ -28,7 +28,7 @@ if(isset($_GET["delete"])){
     <h1 class="title mt-6">Csoportok</h1>
     <?php if (!empty($csoportok)) : ?>
         <?php foreach ($csoportok as $csoport) : ?>
-            <div id="csop_box" data-id="<?=$csoport["ID"]?>" class="box">
+            <div onclick="viewPoszt(<?php echo $csoport['ID'] ?>)" id="csop_box" data-id="<?= $csoport["ID"] ?>" class="box">
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
@@ -42,7 +42,7 @@ if(isset($_GET["delete"])){
                     </div>
 
                     <div class="media-right">
-                        <a href="sajatcsoportok.php?delete=<?=$csoport["ID"]?>" class="delete"></a>
+                        <a href="sajatcsoportok.php?delete=<?= $csoport["ID"] ?>" class="delete"></a>
                     </div>
                 </article>
             </div>
@@ -51,4 +51,9 @@ if(isset($_GET["delete"])){
         <div><strong>Nincsenek csoportok.</strong></div>
     <?php endif; ?>
 </div>
+<script>
+    function viewPoszt(csop_id) {
+        window.location.href = "viewcsoport.php?csop_id=" + csop_id;
+    }
+</script>
 <?php html_footer(); ?>

@@ -22,7 +22,7 @@ Felhasználónként megszámolja hogy mennyi posztja van.
 SELECT felhasznalo.kernev, COUNT(poszt.id) AS post_count
 FROM felhasznalo
 LEFT JOIN poszt ON poszt.felhasznalo_id = felhasznalo.id
-GROUP BY felhasznalo.kernev;
+GROUP BY felhasznalo.kernev FETCH FIRST 10 ROWS ONLY;
 
 
 //UTOLSÓ KETTŐ NINCS MÉG BEIRVA
@@ -30,7 +30,7 @@ GROUP BY felhasznalo.kernev;
 
 Posztonként lájkok száma
 
-SELECT poszt.id, COUNT(*) as like_count FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id
+SELECT poszt.id, COUNT(*) as like_count FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id FETCH FIRST 10 ROWS ONLY
 
 
 Posztonként megszámolja a kommenteket.
@@ -39,4 +39,4 @@ SELECT poszt.id, COUNT(komment.id) AS komment_count
 FROM poszt
 LEFT JOIN komment ON komment.poszt_id = poszt.id
 GROUP BY poszt.id
-ORDER BY komment_count DESC;
+ORDER BY komment_count DESC FETCH FIRST 10 ROWS ONLY;
