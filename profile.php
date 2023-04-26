@@ -22,8 +22,6 @@ while (($row = oci_fetch_array($baratok_stmt, OCI_ASSOC)) != false) {
     $baratok_stat[] = $row;
 }
 
-echo "<pre>" . print_r($baratok_stat, true) . "</pre>";
-
 $datum = array_column($baratok_stat, "DATUM");
 $count = array_column($baratok_stat, "COUNT");
 
