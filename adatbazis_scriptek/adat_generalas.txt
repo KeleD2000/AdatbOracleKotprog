@@ -58,11 +58,6 @@ DECLARE
     RETURN p_start_date + TRUNC(DBMS_RANDOM.VALUE(0, 1) * (p_end_date - p_start_date));
   END rnd_date;
   
- /* FUNCTION hash_password(password IN VARCHAR2) RETURN VARCHAR2
-  IS
-  BEGIN
-  RETURN DBMS_CRYPTO.HASH(UTL_RAW.CAST_TO_RAW(UPPER(password)), DBMS_CRYPTO_HASH_SH1);
-  END hash_password;*/
   
 BEGIN
   FOR i IN 1..50 LOOP
@@ -74,7 +69,6 @@ BEGIN
   v_email := CONCAT(v_felhasznalonev, v_email_vege);
   v_kep_nev := kepnev_list(random_index(kepnev_list.COUNT));
   
-  /*v_jelszo := hash_password(CONCAT(SUBSTR(v_kernev,0,3), TO_CHAR(v_szulido, 'M')));*/
   
   INSERT INTO felhasznalo (felhasznalonev, jelszo, kernev, veznev, szulido, email, kep) VALUES(v_felhasznalonev, 123, v_kernev, v_veznev, v_szulido, v_email, v_kep_nev);
   COMMIT;
@@ -85,7 +79,7 @@ BEGIN
     v_poszt_like := round(DBMS_RANDOM.VALUE(1,150));
     v_poszt_szoveg := poszt_szoveg_list(random_index(poszt_szoveg_list.COUNT));
     
-    INSERT INTO poszt (csoportposzt, szoveg, datum, likes, felhasznalo_id) VALUES (round(DBMS_RANDOM.VALUE(0,1)), v_poszt_szoveg, v_poszt_date, v_poszt_like, (SELECT id
+    INSERT INTO poszt (szoveg, datum, likes, felhasznalo_id) VALUES (v_poszt_szoveg, v_poszt_date, v_poszt_like, (SELECT id
     FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
     COMMIT;
   END LOOP;
