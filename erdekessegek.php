@@ -59,7 +59,7 @@ $poszt_komment_count = array_column($poszt_komment_num, "KOMMENT_COUNT");
             </tr>
     </table>
     </div>
-    <h1 class="title">Lájkok száma posztonkent</h1>
+    <h1 class="title">Lájkok száma posztonként</h1>
     <div class="box">
     <table class="table" style="width: 100%">
             <tr>
@@ -77,7 +77,7 @@ $poszt_komment_count = array_column($poszt_komment_num, "KOMMENT_COUNT");
     </table>
     </div>
 
-    <h1 class="title">Kommentek száma posztonkent</h1>
+    <h1 class="title">Kommentek száma posztonként</h1>
     <div class="box">
     <table class="table" style="width: 100%">
             <tr>

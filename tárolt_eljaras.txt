@@ -19,13 +19,11 @@ CREATE OR REPLACE PROCEDURE like_procedure (
 ) AS
    v_count NUMBER;
 BEGIN
-   -- Ellenőrizzük, hogy van-e már ilyen felhasználó
+
    SELECT COUNT(*) INTO v_count FROM likes WHERE poszt_id = p_poszt_id AND felhasznalo_id = p_felhasz_id;
    
-   -- Ha van már ilyen felhasználó, akkor töröljük
    IF v_count > 0 THEN
       DELETE FROM likes WHERE poszt_id = p_poszt_id AND felhasznalo_id = p_felhasz_id;
-   -- Ha nincs ilyen felhasználó, akkor hozzáadjuk
    ELSE
       INSERT INTO likes (poszt_id, felhasznalo_id) VALUES (p_poszt_id, p_felhasz_id);
    END IF;
