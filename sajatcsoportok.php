@@ -42,6 +42,7 @@ if (isset($_GET["delete"])) {
                     </div>
 
                     <div class="media-right">
+                        <a href="editCsoport.php?csop_id=<?= $csoport["ID"] ?>"><i class="fas fa-edit"></i></a>
                         <a href="sajatcsoportok.php?delete=<?= $csoport["ID"] ?>" class="delete"></a>
                     </div>
                 </article>

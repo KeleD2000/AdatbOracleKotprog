@@ -13,3 +13,17 @@ EXCEPTION
     WHEN ex THEN
         RAISE_APPLICATION_ERROR(-20001, 'Trágár kifejezések használata tilos!');
 END;
+
+
+CREATE OR REPLACE TRIGGER check_csop_nev
+BEFORE INSERT OR UPDATE OF csop_nev ON csoport
+FOR EACH ROW
+DECLARE
+    err_msg VARCHAR2(100);
+BEGIN
+    IF LENGTH(:NEW.csop_nev) < 10 THEN
+        err_msg := 'A csoport név hosszának legalább 10 karakternek kell lennie!';
+        RAISE_APPLICATION_ERROR(-20001, err_msg);
+    END IF;
+END;
+/

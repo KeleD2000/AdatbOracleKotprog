@@ -70,19 +70,9 @@ if (isset($_POST["create_csop_poszt"])) {
                             </div>
                             <nav class="level is-mobile">
                                 <div class="level-left">
-                                    <a class="level-item" aria-label="like" href="komment.php">
+                                    <a class="level-item" aria-label="like" href="komment.php?poszt_id=<?php echo $csopposzt["ID"] ?>">
                                         <span class="icon is-small">
                                             <i class="fa-regular fa-comment"></i>
-                                        </span>
-                                    </a>
-                                    <a class="level-item" aria-label="like" href="komment.php">
-                                        <span class="icon is-small">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </span>
-                                    </a>
-                                    <a class="level-item" aria-label="like" href="komment.php">
-                                        <span class="icon is-small">
-                                            <i class="fa-regular fa-heart"></i>
                                         </span>
                                     </a>
                                 </div>
