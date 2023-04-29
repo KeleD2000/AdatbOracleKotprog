@@ -24,19 +24,14 @@ FROM felhasznalo
 LEFT JOIN poszt ON poszt.felhasznalo_id = felhasznalo.id
 GROUP BY felhasznalo.kernev FETCH FIRST 10 ROWS ONLY;
 
-
-//UTOLSÓ KETTŐ NINCS MÉG BEIRVA
-
-
-Posztonként lájkok száma
+Felhasználónként lájkok száma
 
 SELECT felhasznalo.felhasznalonev, COUNT(*) as like_count FROM likes, felhasznalo WHERE likes.felhasznalo_id = felhasznalo.id GROUP BY felhasznalo.felhasznalonev FETCH FIRST 10 ROWS ONLY
 
 
-Posztonként megszámolja a kommenteket.
+Felhasználónként megszámolja a kommenteket.
 
-SELECT poszt.id, COUNT(komment.id) AS komment_count
-FROM poszt
-LEFT JOIN komment ON komment.poszt_id = poszt.id
-GROUP BY poszt.id
-ORDER BY komment_count DESC FETCH FIRST 10 ROWS ONLY;
+SELECT felhasznalo.felhasznalonev, COUNT(komment.id) AS komment_count
+FROM felhasznalo
+LEFT JOIN komment ON komment.felhasznalo_id = felhasznalo.id
+GROUP BY felhasznalo.felhasznalonev FETCH FIRST 10 ROWS ONLY

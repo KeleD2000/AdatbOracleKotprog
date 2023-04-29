@@ -11,6 +11,7 @@ while (($row = oci_fetch_array($like_stmt, OCI_ASSOC)) != false) {
     $like_count[] = $row;
 }
 
+
 $like_count_poszt = array_column($like_count,"FELHASZNALONEV");
 $like_count_num = array_column($like_count,"LIKE_COUNT");
 
@@ -26,11 +27,10 @@ $kernev = array_column($poszt_num, "KERNEV");
 $num = array_column($poszt_num, "POST_COUNT");
 
 
-$poszt_komment_stmt = oci_parse($con, "SELECT poszt.id, COUNT(komment.id) AS komment_count
-FROM poszt
-LEFT JOIN komment ON komment.poszt_id = poszt.id
-GROUP BY poszt.id
-ORDER BY komment_count DESC FETCH FIRST 10 ROWS ONLY");
+$poszt_komment_stmt = oci_parse($con, "SELECT felhasznalo.felhasznalonev, COUNT(komment.id) AS komment_count
+FROM felhasznalo
+LEFT JOIN komment ON komment.felhasznalo_id = felhasznalo.id
+GROUP BY felhasznalo.felhasznalonev FETCH FIRST 10 ROWS ONLY");
 
 $poszt_komment_num = [];
 oci_execute($poszt_komment_stmt);
@@ -38,7 +38,7 @@ while (($row = oci_fetch_array($poszt_komment_stmt, OCI_ASSOC)) != false) {
     $poszt_komment_num[] = $row;
 }
 
-$poszt_komment_poszt = array_column($poszt_komment_num, "ID");
+$poszt_komment_poszt = array_column($poszt_komment_num, "FELHASZNALONEV");
 $poszt_komment_count = array_column($poszt_komment_num, "KOMMENT_COUNT");
 ?>
 <div class="container mt-3">
@@ -59,7 +59,7 @@ $poszt_komment_count = array_column($poszt_komment_num, "KOMMENT_COUNT");
             </tr>
     </table>
     </div>
-    <h1 class="title">Lájkok száma posztonként</h1>
+    <h1 class="title">Kommentek száma felhasználónként</h1>
     <div class="box">
     <table class="table" style="width: 100%">
             <tr>
@@ -77,7 +77,7 @@ $poszt_komment_count = array_column($poszt_komment_num, "KOMMENT_COUNT");
     </table>
     </div>
 
-    <h1 class="title">Kommentek száma posztonként</h1>
+    <h1 class="title">Lájkok száma felhasználónként</h1>
     <div class="box">
     <table class="table" style="width: 100%">
             <tr>
