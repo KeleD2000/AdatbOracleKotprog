@@ -30,7 +30,7 @@ GROUP BY felhasznalo.kernev FETCH FIRST 10 ROWS ONLY;
 
 Posztonként lájkok száma
 
-SELECT poszt.id, COUNT(*) as like_count FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id FETCH FIRST 10 ROWS ONLY
+SELECT felhasznalo.felhasznalonev, COUNT(*) as like_count FROM likes, felhasznalo WHERE likes.felhasznalo_id = felhasznalo.id GROUP BY felhasznalo.felhasznalonev FETCH FIRST 10 ROWS ONLY
 
 
 Posztonként megszámolja a kommenteket.
