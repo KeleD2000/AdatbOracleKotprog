@@ -22,7 +22,6 @@ create table Poszt(
     csoportposzt NUMBER,
     szoveg VARCHAR2(500),
     datum DATE,
-    likes NUMBER,
 	felhasznalo_id NUMBER,
     PRIMARY KEY(id),
 	FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE
@@ -70,9 +69,9 @@ create table Komment(
 
 create table Kapcsolat(
     felhasznalo_id NUMBER,
-    baratok_userid NUMBER,
+    baratok_id NUMBER,
     FOREIGN KEY(felhasznalo_id) REFERENCES felhasznalo(id) ON DELETE CASCADE,
-    FOREIGN KEY(baratok_userid) REFERENCES baratok(id) ON DELETE CASCADE
+    FOREIGN KEY(baratok_id) REFERENCES baratok(id) ON DELETE CASCADE
 );
 
 create table Likes(

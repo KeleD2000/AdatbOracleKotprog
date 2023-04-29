@@ -10,7 +10,7 @@ oci_execute($user_stmt);
 $user = oci_fetch_object($user_stmt);
 
 $baratok_stmt = oci_parse($con, "SELECT baratok.datum, COUNT(*) as count FROM baratok 
-INNER JOIN kapcsolat ON baratok.id = kapcsolat.baratok_userid
+INNER JOIN kapcsolat ON baratok.id = kapcsolat.baratok_id
 WHERE kapcsolat.felhasznalo_id = :felhasz_id
 GROUP BY baratok.datum
 ");

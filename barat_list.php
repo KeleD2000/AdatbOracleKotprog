@@ -1,5 +1,5 @@
 <?php
-$stmt_barat = oci_parse($con, "SELECT felhasznalo.* FROM kapcsolat INNER JOIN baratok ON kapcsolat.baratok_userid = baratok.id INNER JOIN felhasznalo ON baratok.userid = felhasznalo.id WHERE kapcsolat.felhasznalo_id = :userid");
+$stmt_barat = oci_parse($con, "SELECT felhasznalo.* FROM kapcsolat INNER JOIN baratok ON kapcsolat.baratok_id = baratok.id INNER JOIN felhasznalo ON baratok.userid = felhasznalo.id WHERE kapcsolat.felhasznalo_id = :userid");
 oci_bind_by_name($stmt_barat, ":userid", $_SESSION["id"]);
 oci_execute($stmt_barat);
 $baratok = [];

@@ -76,10 +76,9 @@ BEGIN
   
   FOR i IN 1..30 LOOP
     v_poszt_date := rnd_date(TO_DATE('2020-01-01', 'YYYY-MM_DD'), SYSDATE);
-    v_poszt_like := round(DBMS_RANDOM.VALUE(1,150));
     v_poszt_szoveg := poszt_szoveg_list(random_index(poszt_szoveg_list.COUNT));
     
-    INSERT INTO poszt (szoveg, datum, likes, felhasznalo_id) VALUES (v_poszt_szoveg, v_poszt_date, v_poszt_like, (SELECT id
+    INSERT INTO poszt (szoveg, datum, felhasznalo_id) VALUES (v_poszt_szoveg, v_poszt_date, (SELECT id
     FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
     COMMIT;
   END LOOP;
@@ -118,7 +117,7 @@ BEGIN
   END LOOP;
 
   FOR i IN 1..500 LOOP
-    INSERT INTO kapcsolat (felhasznalo_id, baratok_userid) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM baratok ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
+    INSERT INTO kapcsolat (felhasznalo_id, baratok_id) VALUES ((SELECT id FROM (SELECT id FROM felhasznalo ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1), (SELECT id FROM (SELECT id FROM baratok ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM = 1));
     COMMIT;
   END LOOP;
   
