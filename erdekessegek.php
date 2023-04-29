@@ -4,14 +4,14 @@ if (!isset($_SESSION["login"])) header("location: index.php");
 html_header("Üdvözöllek");
 include("navbar.php");
 
-$like_stmt = oci_parse($con, "SELECT poszt.id, COUNT(*) as like_count FROM likes, poszt WHERE likes.poszt_id = poszt.id GROUP BY poszt.id FETCH FIRST 10 ROWS ONLY");
+$like_stmt = oci_parse($con, "SELECT felhasznalo.felhasznalonev, COUNT(*) as like_count FROM likes, felhasznalo WHERE likes.felhasznalo_id = felhasznalo.id GROUP BY felhasznalo.felhasznalonev FETCH FIRST 10 ROWS ONLY");
 $like_count = [];
 oci_execute($like_stmt);
 while (($row = oci_fetch_array($like_stmt, OCI_ASSOC)) != false) {
     $like_count[] = $row;
 }
 
-$like_count_poszt = array_column($like_count,"ID");
+$like_count_poszt = array_column($like_count,"FELHASZNALONEV");
 $like_count_num = array_column($like_count,"LIKE_COUNT");
 
 $poszt_num_stmt = oci_parse($con, "SELECT felhasznalo.kernev, COUNT(poszt.id) AS post_count FROM felhasznalo LEFT JOIN poszt ON poszt.felhasznalo_id = felhasznalo.id GROUP BY felhasznalo.kernev FETCH FIRST 10 ROWS ONLY");
