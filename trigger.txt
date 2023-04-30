@@ -16,7 +16,7 @@ END;
 
 
 CREATE OR REPLACE TRIGGER check_csop_nev
-BEFORE INSERT OR UPDATE OF csop_nev ON csoport
+BEFORE UPDATE OF csop_nev ON csoport
 FOR EACH ROW
 DECLARE
     err_msg VARCHAR2(100);
