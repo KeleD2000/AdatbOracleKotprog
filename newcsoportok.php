@@ -5,17 +5,6 @@ html_header("Csoportok");
 include("navbar.php");
 
 if (isset($_POST["create_csoport"])) {
-    /*$insert_stmt = oci_parse($con, "INSERT INTO csoport (csop_leiras, csop_nev) VALUES(:csop_leiras, :csop_nev) RETURNING ID INTO :csop_id");
-    oci_bind_by_name($insert_stmt, ":csop_leiras", $_POST["csop_leiras"]);
-    oci_bind_by_name($insert_stmt, ":csop_nev", $_POST["csop_nev"]);
-    oci_bind_by_name($insert_stmt, ":csop_id", $last_csop_id);
-    oci_execute($insert_stmt);
-
-    $kapcsolat_stmt = oci_parse($con, "INSERT INTO tartozik (felhasznalo_id, csoport_id) VALUES(:felhasznalo_id, :csoport_id)");
-    oci_bind_by_name($kapcsolat_stmt, ":felhasznalo_id", $_SESSION["id"]);
-    oci_bind_by_name($kapcsolat_stmt, ":csoport_id", $last_csop_id);
-    oci_execute($kapcsolat_stmt);*/
-
     $stmt = oci_parse($con, "BEGIN create_csoport(:csop_nev, :csop_leiras, :user_id); END;");
     oci_bind_by_name($stmt, ":csop_leiras", $_POST["csop_leiras"]);
     oci_bind_by_name($stmt, ":csop_nev", $_POST["csop_nev"]);
