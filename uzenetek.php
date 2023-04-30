@@ -6,7 +6,7 @@ html_header("Üdvözöljük");
 include("navbar.php");
 
 // Barátok lekérdezése
-$sql = "SELECT felhasznalo.* FROM kapcsolat INNER JOIN baratok ON kapcsolat.baratok_userid = baratok.id INNER JOIN felhasznalo ON baratok.userid = felhasznalo.id WHERE kapcsolat.felhasznalo_id = :userid";
+$sql = "SELECT felhasznalo.* FROM kapcsolat INNER JOIN baratok ON kapcsolat.baratok_id = baratok.id INNER JOIN felhasznalo ON baratok.userid = felhasznalo.id WHERE kapcsolat.felhasznalo_id = :userid";
 $baratok_stid = oci_parse($con, $sql);
 oci_bind_by_name($baratok_stid, ":userid", $_SESSION["id"]);
 oci_execute($baratok_stid);

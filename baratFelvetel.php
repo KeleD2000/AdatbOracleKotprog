@@ -17,6 +17,6 @@ if (!isset($_GET["baratid"])) {
     oci_bind_by_name($kapcsolat_stmt, ":baratok_userid", $last_id);
 
     if(oci_execute($kapcsolat_stmt)){
-        //header("location: baratok.php");
+        header("location: baratok.php");
     }
 }

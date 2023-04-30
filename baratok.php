@@ -2,7 +2,7 @@
 require_once("init.php");
 if (!isset($_SESSION["login"])) header("location: index.php");
 html_header("Üdvözöljük");
-$stmt_barat = oci_parse($con, "SELECT * FROM felhasznalo WHERE felhasznalo.id != '".$_SESSION["id"]."' AND felhasznalo.id NOT IN (SELECT baratok.id FROM kapcsolat, baratok WHERE kapcsolat.baratok_id = baratok.id)");
+$stmt_barat = oci_parse($con, "SELECT * FROM felhasznalo WHERE felhasznalo.id != '".$_SESSION["id"]."' AND felhasznalo.id NOT IN (SELECT baratok.userid FROM kapcsolat, baratok WHERE kapcsolat.baratok_id = baratok.id)");
 oci_execute($stmt_barat);
 $baratok = [];
 while (($row = oci_fetch_array($stmt_barat, OCI_ASSOC)) != false) {
